@@ -12,16 +12,114 @@
 <link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png">
 <link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png">
 
-<title>TrickGuys-Magic Show</title> 
+<title>TrickGuys-</title> 
 
 <!-- Styles -->
-<link href="https://fonts.googleapis.com/css?family=Montserrat:500,600,700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,400i&display=swap" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet" media="screen">
+<link href="css/style.css?v=999" rel="stylesheet" media="screen">
+
+<!-- Fonts -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSans.css">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+<style>
+
+</style>
 </head>
+
 <body>
+<style>
+  /* 기본 마우스 커서를 숨기고 싶으면 주석 해제 */
+  /* body { cursor: none; } */
+
+  .cursor-dot {
+    position: fixed;
+    left: 0; top: 0;
+    width: 10px; height: 10px;
+    border-radius: 999px;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 999999;
+  }
+
+  .cursor-ring {
+    position: fixed;
+    left: 0; top: 0;
+    width: 36px; height: 36px;
+    border-radius: 999px;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 999998;
+    box-sizing: border-box;
+  }
+
+  /* 색/스타일만 여기서 바꾸면 됨 */
+  .cursor-dot { background: rgba(255, 80, 160, 0.95); }
+  .cursor-ring { border: 2px solid rgba(255, 80, 160, 0.45); }
+</style>
+
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<script>
+  (function () {
+    const dot = document.getElementById("cursorDot");
+    const ring = document.getElementById("cursorRing");
+
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2;   // 실제 마우스
+    let dx = mx, dy = my;                                         // dot 위치(빠름)
+    let rx = mx, ry = my;                                         // ring 위치(느림)
+
+    const isTouch = matchMedia("(pointer: coarse)").matches;
+    if (isTouch) { dot.style.display = "none"; ring.style.display = "none"; return; }
+
+    window.addEventListener("pointermove", (e) => {
+      mx = e.clientX;
+      my = e.clientY;
+      dot.style.opacity = "1";
+      ring.style.opacity = "1";
+    }, { passive: true });
+
+    window.addEventListener("pointerleave", () => {
+      dot.style.opacity = "0";
+      ring.style.opacity = "0";
+    });
+
+    function animate() {
+      // dot은 더 빠르게, ring은 더 느리게 따라오게 해서 “부드러운 딜레이” 느낌
+      dx += (mx - dx) * 0.5;
+      dy += (my - dy) * 0.5;
+
+      rx += (mx - rx) * 0.2;
+      ry += (my - ry) * 0.2;
+
+      dot.style.transform = `translate(${dx}px, ${dy}px) translate(-50%, -50%)`;
+      ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // 클릭 시 살짝 “펀치” 주기
+    window.addEventListener("pointerdown", () => {
+      ring.style.transform += " scale(0.85)";
+      setTimeout(() => {}, 0);
+    });
+  })();
+</script>
+
   <div class="animsition">   
     <div class="loader"><div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div></div>
+  
+<a href="https://open.kakao.com/o/slcrQU2e"
+     class="kakao-float"
+     target="_blank"
+     rel="noopener"
+     aria-label="카카오톡 문의하기">
+    <img src="images/icon-kakao.png" alt="카카오톡 문의">
+  </a>
 
     <!-- Content CLick Capture-->
 
@@ -44,12 +142,6 @@
         <li  data-menuanchor="page4">
           <a href="#page4">About</a>
         </li>
-        <li  data-menuanchor="page5">
-          <a href="#page5">Projects</a>
-        </li>
-        <li  data-menuanchor="page7">
-          <a href="#page7">Testimonials</a>
-        </li>
         <li  data-menuanchor="page8">
           <a href="#page8">Contact</a>
         </li>
@@ -70,7 +162,7 @@
 
     <header class="navbar navbar-fullpage boxed">
       <div class="navbar-bg"></div>
-      <a class="brand" href="#">
+      <a class="brand" href="#page1">
         <img alt="" src="images/brand.png">
         <div class="brand-info">
           <div class="brand-name">Trick Guys</div>
@@ -95,15 +187,7 @@
 </div>
       </div>
     </header>
-    <div class="copy-bottom white boxed">© Ramsay 2019.</div>
-    <div class="social-list social-list-bottom boxed">
-        <a href="" class="icon ion-social-twitter"></a>
-        <a href="" class="icon ion-social-facebook"></a>
-        <a href="" class="icon ion-social-googleplus"></a>
-        <a href="" class="icon ion-social-linkedin"></a>
-        <a href="" class="icon ion-social-dribbble-outline"></a>
-      </div>
-    <div class="pagepiling">
+    <div id="pagepiling" class="pagepiling">
       <div data-anchor="page1" class="pp-scrollable text-white section section-1">
         <div class="scroll-wrap">
           <div class="section-bg" style="background-image:url(images/bg/main.jpg);"></div>
@@ -113,19 +197,40 @@
                 <div class="boxed">
                   <div class="container">
                     <div class="intro">
-                      <div class="row">
-                        <div class="col-md-8 col-lg-6">
-                          <h1 class="display-2 text-white wow fadeIn" data-wow-delay="0.1s">
-  <span class="text-primary">박한울</span> 매직케이터 진로매직콘서트
+                    
+ <div class="row">
+  <div class="col-lg-8">
+ <h1 class="hero-title">
+  <span class="hero-accent">마술</span>을 통해 교육적인
+  <span class="hero-highlight">메시지를</span> 남깁니다
 </h1>
-<p class="text-white-50 mt-3 wow fadeIn" data-wow-delay="0.2s">
-  마술로 몰입시키고, 진로 메시지로 남기는 공연형 진로교육
+
+<p class="hero-tagline">
+  매직케이터(Magician + Educator) 박한울
 </p>
-                        <a href="https://youtu.be/5Skngnjt_ys" target="_blank" rel="noopener">
-  <span class="icon ion-ios-play"></span>공연 소개 영상 보기
-</a>
-                        </div>
-                      </div>
+
+<div class="hero-video">
+  <div class="hero-video-frame">
+    <video
+      class="hero-video-el"
+      src="videos/intro.mp4"
+      controls
+      playsinline
+      preload="auto"
+      poster="images/hero/video-poster.jpg"
+    ></video>
+  </div>
+
+
+  <div class="hero-video-note">
+    *소리가 안 들리면 🔊(음소거 해제) 눌러주세요.
+  </div>
+</div>
+    
+  </div>
+</div>
+
+
                     </div>
                   </div>
                 </div>
@@ -137,41 +242,63 @@
      <div data-anchor="page2" class="pp-scrollable section section-2">
   <div class="scroll-wrap">
     <div class="scrollable-content">
-      <div class="vertical-title text-white d-none d-lg-block"><span>what I do</span></div>
+      <div class="vertical-title text-white d-none d-lg-block"><span>Review</span></div>
 
       <div class="vertical-centred">
         <div class="boxed boxed-inner">
           <div class="boxed">
             <div class="container">
-              <div class="intro">
+             <div class="intro review-clean">
 
-                <h2 class="title mb-5 pb-5"><span class="text-primary">선생님들의</span> 선택에는 이유가 있습니다</h2>
+  <!-- 메인 타이틀: 1개로 통합 -->
+  <header class="review-head">
+    <h2 class="review-title">
+      <span class="text-primary">선생님들의 선택</span>에는 이유가 있습니다
+    </h2>
+    <p class="review-desc">진행 학교와 실제 교사 후기로 증명합니다.</p>
+  </header>
 
-                <div class="kpi-row">
-                  <div class="kpi-item">
-                    <div class="kpi-label">체험 학생수</div>
-                    <div class="kpi-value">5000<span class="kpi-unit">+</span></div>
-                  </div>
+  <!-- 블록 1: 진행학교 -->
+  <section class="review-block">
+    <div class="block-head">
+      <h3 class="block-title"><span class="text-primary">2025</span> 진행학교</h3>
+    </div>
 
-                  <div class="kpi-item">
-                    <div class="kpi-label">진행 학교 수</div>
-                    <div class="kpi-value">500<span class="kpi-unit">+</span></div>
-                  </div>
+    <div class="school-carousel owl-carousel" id="schoolCarousel"></div>
+  </section>
 
-                  <div class="kpi-item">
-                    <div class="kpi-label">강의 만족도</div>
-                    <div class="kpi-value">4.9<span class="kpi-unit">/5</span></div>
-                    <div class="kpi-stars">★★★★★</div>
-                  </div>
-                </div>
+  <!-- 블록 2: 선생님 후기 -->
+  <section class="review-block">
+    <div class="block-head">
+      <h3 class="block-title">선생님 후기</h3>
+      <span class="block-sub">실제 진행 학교 교사 후기 중</span>
+    </div>
 
-                <p class="kpi-desc">
-                  몰입형 매직쇼로 분위기를 만들고, 진로 메시지를 자연스럽게 연결하는 공연형 진로교육 프로그램입니다.
-                </p>
+    <div class="quote-list">
+      <figure class="quote">
+        <blockquote>“먼 길까지 오셔서 열정적이고 수준 높은 공연 해주셔서 감사드립니다. 아이들도 선생님도 시간 가는 줄 몰랐다며 무척 즐거워했습니다.”</blockquote>
+        <figcaption>— 중학교 진로부 교사</figcaption>
+      </figure>
 
-                <div class="view-all">
-                  <a href="#page8">공연 문의하기</a>
-                </div>
+      <figure class="quote">
+        <blockquote>“동료 선생님들이 공연이 너무 좋았다고, 마술과 진로를 잘 매칭한 공연이었다고 이야기 해주셨습니다.”</blockquote>
+        <figcaption>— 중학교 진로 담당 교사</figcaption>
+      </figure>
+
+     
+      <figure class="quote is-hidden">
+        <blockquote>“공연 내용이 진로 수업으로 이어지기 좋아 교육적으로 활용도가 높았습니다.”</blockquote>
+        <figcaption>— 고등학교 담임 교사</figcaption>
+      </figure>
+    
+    </div>
+
+    <div class="review-actions">
+      <a class="btn-ghost" href="https://www.instagram.com/hanulmagic_official/" target="_blank" rel="noopener">
+        <i class="fab fa-instagram"></i> 공연 사진 더 보기 →
+      </a>
+      </div>
+  </section>
 
               </div><!-- /.intro -->
             </div><!-- /.container -->
@@ -201,23 +328,23 @@
 
               <div class="row">
                 <div class="col-12 col-md-4 mb-4">
+                  <a class="poster-card d-block" href="project-balloonshow.html">
+                    <img class="w-100" src="images/posters/poster-balloonshow.jpg" alt="풍선나라 마술여행 포스터">
+<div class="poster-hover">자세히 보기 →</div>
+                    <div class="poster-meta">
+                      <div class="poster-title">풍선나라 마술여행</div>
+                      <div class="poster-sub">신나는 매직 벌룬쇼</div>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="col-12 col-md-4 mb-4">
                   <a class="poster-card d-block" href="project-bcd.html">
                     <img class="w-100" src="images/posters/poster-bcd.jpg" alt="B.C.D 포스터">
 <div class="poster-hover">자세히 보기 →</div>
                     <div class="poster-meta">
                       <div class="poster-title">B.C.D</div>
                       <div class="poster-sub">중·고등 진로매직콘서트</div>
-                    </div>
-                  </a>
-                </div>
-
-                <div class="col-12 col-md-4 mb-4">
-                  <a class="poster-card d-block" href="project-blank.html">
-                    <img class="w-100" src="images/posters/poster-blank.jpg" alt="THE BLANK 포스터">
-<div class="poster-hover">자세히 보기 →</div>
-                    <div class="poster-meta">
-                      <div class="poster-title">THE BLANK</div>
-                      <div class="poster-sub">이영민 마술사의 공연</div>
                     </div>
                   </a>
                 </div>
@@ -257,345 +384,426 @@
                 <div class="boxed">
                   <div class="container">
                     <div class="intro">
-                      <div class="row align-items-center">
-                        <div class="col-lg-6 offset-xl-1">
-                          <div class="experience-box">
-                            <div class="experience-content">
-                              <div class="experience-number">4</div>
-                              <div class="experience-info"><div>Years<br>Experience<br>Working</div></div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-lg-5 mt-5 mt-xl-0">
-                          <h2 class="title"> <span class="text-primary">The best</span> websites</h2>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium dicta sit pariatur odio unde deleniti eveniet.
-                          <div class="progress-bars">
-                            <div class="clearfix">
-                              <div class="number float-left">Mobile Design</div>
-                              <div class="number float-right">80%</div>
-                            </div>
-                            <div class="progress">
-                              <div class="progress-bar-wrp">
-                                <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                              </div>
-                            </div>
-                            <div class="clearfix">
-                              <div class="number float-left">Coding</div>
-                              <div class="number float-right">70%</div>
-                            </div>
-                            <div class="progress">
-                              <div class="progress-bar-wrp">
-                                <div class="progress-bar" role="progressbar" style="width: 70%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                              </div>
-                            </div>
-                            <div class="clearfix">
-                              <div class="number float-left">Illustration</div>
-                              <div class="number float-right">70%</div>
-                            </div>
-                            <div class="progress">
-                              <div class="progress-bar-wrp">
-                                <div class="progress-bar" role="progressbar" style="width: 70%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div data-anchor="page5" class="pp-scrollable text-white section section-5">
-        <div class="scroll-wrap">
-          <div class="bg-changer">
-  <div class="section-bg" style="background-image:url(images/bg/poster-bcd.jpg);"></div>
-  <div class="section-bg" style="background-image:url(images/bg/poster-blank.jpg);"></div>
-  <div class="section-bg" style="background-image:url(images/bg/poster-bloomingdream.jpg);"></div>
-</div>
+                    <h2 class="title posters-title">
+                <span class="text-primary">교육</span> 공연 포스터
+              </h2>
 
-          <div class="scrollable-content">
-            <div class="vertical-title  d-none d-lg-block"><span>my works</span></div>
-            <div class="vertical-centred">
-              <div class="boxed boxed-inner">
-                <div class="boxed">
-                  <div class="container">
-                    <div class="intro">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="project-row">
-                            <a class="active" href="project-detail.html">
-                              <span class="project-number">01</span>
-                              <h2 class="project-title">Abstract Skat</h2>
-                              <div class="project-category">Illustration</div>
-                            </a>
-                          </div>
-                          <div class="project-row">
-                            <a href="project-detail.html">
-                              <span class="project-number">02</span>
-                              <h2 class="project-title">Borato Prism</h2>
-                              <div class="project-category">Branding</div>
-                            </a>
-                          </div>
-                          <div class="project-row">
-                            <a href="project-detail.html">
-                              <span class="project-number">03</span>
-                              <h2 class="project-title">Brole Mobile App</h2>
-                              <div class="project-category">Mobile Design</div>
-                            </a>
-                          </div>
-                          <div class="project-row">
-                            <a href="project-detail.html">
-                              <span class="project-number">04</span>
-                              <h2 class="project-title">Bauhaus Studio</h2>
-                              <div class="project-category">House Design</div>
-                            </a>
-                          </div>
-                          <div class="view-all view-all-projects">
-                            <a  href="projects.html">
-                              View all projects
-                            </a>
-                          </div>
-                        </div>
-                      </div>
+              <div class="row">
+                <div class="col-12 col-md-4 mb-4">
+                  <a class="poster-card d-block" href="project-bcd.html">
+                    <img class="w-100" src="images/posters/poster-magician.jpg" alt="교실형마술체험">
+
+                    <div class="poster-meta">
+                      <div class="poster-title">THE MAGICIAN'S HAT</div>
+                      <div class="poster-sub">교실형 마술사 직업체험</div>
                     </div>
-                  </div>
+                  </a>
+                </div>
+
+                <div class="col-12 col-md-4 mb-4">
+                  <a class="poster-card d-block" href="project-blank.html">
+                    <img class="w-100" src="images/posters/poster-nosmoking.jpg" alt="흡연예방 포스터">
+
+                    <div class="poster-meta">
+                      <div class="poster-title">흡연예방매직쇼</div>
+                      <div class="poster-sub">청소년 흡연예방 매직쇼</div>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="col-12 col-md-4 mb-4">
+                  <a class="poster-card d-block" href="project-blank.html">
+                    <img class="w-100" src="images/posters/poster-blank.jpg" alt="빈칸 포스터">
+
+                    <div class="poster-meta">
+                      <div class="poster-title">빈칸</div>
+                      <div class="poster-sub">이영민 마술사의 진로매직콘서트</div>
+                    </div>
+                  </a>
                 </div>
               </div>
+
+              <div class="view-all" style="margin-top: 2rem;">
+                <a href="#page8">공연 문의하기</a>
+            </div>
+
             </div>
           </div>
         </div>
       </div>
-      <div data-anchor="page6" class="pp-scrollable section section-6">
-        <div class="scroll-wrap">
-          <div class="scrollable-content">
-            <div class="vertical-title text-white d-none d-lg-block"><span>partners</span></div>
-            <div class="vertical-centred">
-              <div class="boxed boxed-inner">
-                <div class="boxed">
-                  <div class="container">
-                    <div class="intro">
-                       <h2 class="title text-white"><span class="text-primary">Trusted</span> from Clients</h2>
-                      <div class="row row-partners">
-                        <div class="col-sm-6 col-md-4 col-xl-3 col-partner">
-                          <div class="partner-inner"><img alt="" src="images/partners/1.png"></div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-xl-3 col-partner">
-                          <div class="partner-inner"><img alt="" src="images/partners/2.png"></div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-xl-3 col-partner">
-                          <div class="partner-inner"><img alt="" src="images/partners/3.png"></div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-xl-3 col-partner">
-                          <div class="partner-inner"><img alt="" src="images/partners/4.png"></div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-xl-3 col-partner">
-                          <div class="partner-inner"><img alt="" src="images/partners/5.png"></div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-xl-3 col-partner">
-                          <div class="partner-inner"><img alt="" src="images/partners/6.png"></div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-xl-3 col-partner">
-                          <div class="partner-inner"><img alt="" src="images/partners/7.png"></div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-xl-3 col-partner">
-                          <div class="partner-inner"><img alt="" src="images/partners/8.png"></div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-xl-3 col-partner">
-                          <div class="partner-inner"><img alt="" src="images/partners/9.png"></div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-xl-3 col-partner">
-                          <div class="partner-inner"><img alt="" src="images/partners/10.png"></div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-xl-3 col-partner">
-                          <div class="partner-inner"><img alt="" src="images/partners/11.png"></div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-xl-3 col-partner">
-                          <div class="partner-inner"><img alt="" src="images/partners/12.png"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div data-anchor="page7" class="pp-scrollable text-white section section-7">
-        <div class="scroll-wrap">
-          <div class="section-bg" style="background-image:url(images/bg/reviews.jpg);"></div>
-          <div class="bg-quote"></div>
-          <div class="scrollable-content">
-            <div class="vertical-title  d-none d-lg-block"><span>testimonials</span></div>
-            <div class="vertical-centred">
-              <div class="boxed boxed-inner">
-                <div class="boxed">
-                  <div class="container">
-                    <div class="intro">
-                      <div class="review-carousel owl-carousel">
-                        <div class="review-carousel-item">
-                          <div class="review-row">
-                            <div class="row">
-                              <div class="col-md-5">
-                                <div class="review-author">
-                                  <div class="author-name">David & Elisa</div>
-                                  <i>Apartment view lake at Brooklyn</i>
-                                </div>
-                              </div>
-                              <div class="col-md-7 text">
-                              <p>If you are seeking an Interior designer that will understand exactly your needs, and someone who will utilise their creative and technical skills in parity with your taste, then Suzanne at The Ramsay Studio is perfect.</p>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="review-row">
-                            <div class="row">
-                              <div class="col-md-5">
-                                <div class="review-author">
-                                  <div class="author-name">Amanda</div>
-                                  <i>Apartment view lake at Brooklyn</i>
-                                </div>
-                              </div>
-                              <div class="col-md-7 text">
-                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio dolorem reiciendis doloremque veniam perspiciatis quam velit pariatur eius, repellendus dolores eveniet maiores sed. Quod quam minus dolore sed cumque aliquid.</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="review-carousel-item">
-                          <div class="review-row">
-                            <div class="row">
-                              <div class="col-md-5">
-                                <div class="review-author">
-                                  <div class="author-name">David & Elisa</div>
-                                  <i>Apartment view lake at Brooklyn</i>
-                                </div>
-                              </div>
-                              <div class="col-md-7 text">
-                              <p>If you are seeking an Interior designer that will understand exactly your needs, and someone who will utilise their creative and technical skills in parity with your taste, then Suzanne at The Ramsay Studio is perfect.</p>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="review-row">
-                            <div class="row">
-                              <div class="col-md-5">
-                                <div class="review-author">
-                                  <div class="author-name">Amanda</div>
-                                  <i>Apartment view lake at Brooklyn</i>
-                                </div>
-                              </div>
-                              <div class="col-md-7 text">
-                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio dolorem reiciendis doloremque veniam perspiciatis quam velit pariatur eius, repellendus dolores eveniet maiores sed. Quod quam minus dolore sed cumque aliquid.</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="review-carousel-item">
-                          <div class="review-row">
-                            <div class="row">
-                              <div class="col-md-5">
-                                <div class="review-author">
-                                  <div class="author-name">David & Elisa</div>
-                                  <i>Apartment view lake at Brooklyn</i>
-                                </div>
-                              </div>
-                              <div class="col-md-7 text">
-                              <p>If you are seeking an Interior designer that will understand exactly your needs, and someone who will utilise their creative and technical skills in parity with your taste, then Suzanne at The Ramsay Studio is perfect.</p>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="review-row">
-                            <div class="row">
-                              <div class="col-md-5">
-                                <div class="review-author">
-                                  <div class="author-name">Amanda</div>
-                                  <i>Apartment view lake at Brooklyn</i>
-                                </div>
-                              </div>
-                              <div class="col-md-7 text">
-                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio dolorem reiciendis doloremque veniam perspiciatis quam velit pariatur eius, repellendus dolores eveniet maiores sed. Quod quam minus dolore sed cumque aliquid.</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div data-anchor="page8" class="pp-scrollable section section-8">
-        <div class="scroll-wrap">
-          <div class="section-bg" style="background-image:url(images/bg/contact.jpg);"></div>
-          <div class="scrollable-content">
-            <div class="vertical-title text-white d-none d-lg-block"><span>contact</span></div>
-            <div class="vertical-centred">
-              <div class="boxed boxed-inner">
-                <div class="boxed">
-                  <div class="container">
-                    <div class="intro overflow-hidden">
-                      <div class="row">
-                        <div class="col-md-6">
-                          <h2 class="title"><span class="text-primary">New York</span>, USA</h2>
-                          <h5 class="text-muted">166 Main Street, Beverly Hills, CA 90210</h5>
-                          <section class="contact-address">
-                            <h3><a class="mail" href="mailto:contact@ramsay.com"> contact@ramsay.com</a></h3>
-                            <h3><span class="phone">+96 56-85-1379</span></h3>
-                          </section>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="contact-info">
-                            <form class="js-form" novalidate="novalidate">
-                              <div class="row">
-                                <div class="form-group col-sm-6">
-                                  <input type="text" name="name" required="" placeholder="Name*" aria-required="true">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                  <input type="email" required="" name="email" placeholder="Email*">
-                                </div>
-                                <div class="form-group col-sm-12">
-                                  <input type="text" name="subject" placeholder="Subject (Optinal)">
-                                </div>
-                                <div class="form-group col-sm-12">
-                                  <textarea name="message" required="" placeholder="Message*"></textarea>
-                                </div>
-                                <div class="form-group form-group-message col-sm-12">
-                                  <span id="success" class="text-primary">Thank You, your message is successfully sent!</span>
-                                  <span id="error" class="text-primary">Sorry, something went wrong </span>
-                                </div>
-                                <div class="col-sm-12"><button type="submit" class="btn">Contact me</button></div>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
     </div>
   </div>
+</div>
+</div>
+      
+<!-- page8 -->
+<div data-anchor="page8" class="pp-scrollable section section-8">
+  <div class="scroll-wrap">
+    <div class="scrollable-content">
+      <div class="vertical-centred">
+        <div class="container">
+
+          <main class="inq-wrap">
+            <header class="inq-head">
+              <h1 class="inq-title">프로그램 견적 문의</h1>
+
+              <ol class="inq-steps">
+               <li class="inq-step is-active"><span class="inq-step-num">1</span></li>
+<li class="inq-step"><span class="inq-step-num">2</span></li>
+              </ol>
+            </header>
+
+            <section class="inq-card">
+
+              <!-- 🔥 STEP WRAPPER -->
+              <div id="inqStepper">
+
+              <!-- ================= STEP 1 ================= -->
+<div class="inq-actions inq-actions-bar">
+  <div class="inq-block-title">학교 정보</div>
+  <!-- 지역 선택 -->
+  <div class="inq-grid">
+    <select class="inq-control" id="regionSido" required>
+      <option value="">도/시</option>
+    </select>
+
+    <select class="inq-control" id="regionSigungu" required disabled>
+      <option value="">시/군/구</option>
+    </select>
+  </div>
+
+  <!-- 학교 이름 -->
+  <div class="inq-field is-full">
+    <label class="inq-label">학교 이름 <span class="req">*</span></label>
+    <div class="inq-input-with-btn">
+      <input
+        class="inq-control"
+        type="text"
+        id="schoolName"
+        placeholder="학교 이름을 입력해주세요"
+        required
+      >
+      <button class="inq-clear" type="button">×</button>
+    </div>
+  </div>
+
+
+  <!-- 학년 -->
+<div class="inq-block">
+  <div class="inq-block-title">대상 정보</div>
+
+  <div class="inq-grid-2tight">
+    <div class="inq-field">
+      <label class="inq-label">학년 <span class="req">*</span></label>
+      <select class="inq-control" id="grade" required>
+        <option value="">학년을 선택해 주세요</option>
+        <option>초등 저학년</option>
+        <option>초등 고학년</option>
+        <option>중등</option>
+        <option>고등</option>
+      </select>
+    </div>
+
+    <div class="inq-field">
+      <label class="inq-label">학급수 <span class="req">*</span></label>
+      <input class="inq-control" id="classCount" type="number" placeholder="학급 수 입력" required>
+    </div>
+  </div>
+</div>
+
+
+  <!-- 프로그램 -->
+  <div class="inq-block">
+  <div class="inq-block-title">일정 · 장소 · 프로그램</div>
+    <label class="inq-label">프로그램 <span class="req">*</span></label>
+    <select class="inq-control" id="program" required>
+      <option value="">희망하는 프로그램 선택</option>
+      <option>진로 매직 콘서트</option>
+      <option>초등 진로 프로그램</option>
+      <option>안전/인성 프로그램</option>
+    </select>
+  </div>
+
+  <!-- 차시 -->
+  <div class="inq-field">
+    <label class="inq-label">차시 <span class="req">*</span></label>
+    <select class="inq-control" id="sessionCount" required>
+      <option value="">차시를 선택해 주세요</option>
+      <option>1차시</option>
+      <option>2차시</option>
+    </select>
+  </div>
+<div class="inq-core">
+   <div class="inq-field is-full">
+  <label class="inq-label">일시 및 시간 <span class="req">*</span></label>
+
+  <div id="timeField" class="inq-grid-3">
+    <div class="inq-mini">
+      <span class="inq-mini-label">일시</span>
+      <input class="inq-control" type="date" id="classDate" required>
+    </div>
+
+    <div class="inq-mini">
+      <span class="inq-mini-label">시작</span>
+      <input class="inq-control" type="time" id="classStartTime" required>
+    </div>
+
+    <div class="inq-mini">
+      <span class="inq-mini-label">종료</span>
+      <input class="inq-control" type="time" id="classEndTime" required>
+    </div>
+  </div>
+    <div id="timeError" class="inq-error" aria-live="polite"></div>
+  </div>
+
+  <!-- 행사장소 + 층 -->
+  <div class="inq-field is-full">
+    <label class="inq-label">행사장소 <span class="req">*</span></label>
+</div>
+    <div class="inq-grid inq-grid-2tight">
+      <select class="inq-control" id="venueType" required>
+        <option value="">장소 선택</option>
+        <option>강당/체육관</option>
+        <option>시청각실</option>
+        <option>교실</option>
+        <option>도서관</option>
+        <option>기타</option>
+      </select>
+
+      <input
+        class="inq-control"
+        type="text"
+        id="venueFloor"
+        placeholder="층 (예: 2층)"
+        required
+      >
+    </div>
+
+    <div class="inq-field" id="venueEtcWrap" style="display:none; margin-top:10px;">
+      <input
+        class="inq-control"
+        type="text"
+        id="venueEtc"
+        placeholder="기타 장소명을 입력해 주세요"
+      >
+    </div>
+  </div>
+
+
+  <!-- 버튼 -->
+  <div class="inq-actions">
+    <button type="button" class="btn-soft" id="btnAddClass">
+      수업 추가
+    </button>
+    
+<button type="button" class="btn-primary" id="btnNext">
+      다음
+    </button>
+  </div>
+
+  <!-- 추가된 수업 리스트 -->
+  <div class="class-list" id="classListWrap" style="display:none;">
+    <h3 class="class-list-title">추가된 수업</h3>
+    <div class="class-list-items" id="classList"></div>
+  </div>
+
+</div>
+<!-- ================= END STEP 1 ================= -->
+
+            
+
+                <!-- ================= STEP 3 ================= -->
+                <div class="inq-panel" data-step="3" style="display:none;">
+                 <form id="inqForm">
+
+  <div class="inq-field">
+    <label>담당자 성함 *</label>
+    <input type="text" id="contactName" required>
+  </div>
+
+  <div class="inq-field">
+    <label>연락처 *</label>
+    <input type="tel" id="contactPhone" required>
+  </div>
+
+  <div class="inq-field">
+    <label>이메일</label>
+    <input type="email" id="contactEmail">
+  </div>
+<div class="inq-field">
+  <label>음향장비 사용 가능 여부 *</label>
+  <div class="inq-choice">
+    <label><input type="radio" name="audioAvail" value="가능" required> 가능</label>
+    <label><input type="radio" name="audioAvail" value="불가"> 불가</label>
+    <label><input type="radio" name="audioAvail" value="미정"> 미정</label>
+  </div>
+</div>
+
+<div class="inq-field">
+  <label>스크린 사용 가능 여부 *</label>
+  <div class="inq-choice">
+    <label><input type="radio" name="screenAvail" value="가능" required> 가능</label>
+    <label><input type="radio" name="screenAvail" value="불가"> 불가</label>
+    <label><input type="radio" name="screenAvail" value="미정"> 미정</label>
+  </div>
+</div>
+
+  <div class="inq-field">
+    <label>추가 요청사항</label>
+    <textarea id="contactMemo"></textarea>
+  </div>
+
+  <div class="inq-actions">
+   <button type="submit" class="btn-primary" id="btnSubmitInquiry">제출</button>
+  </div>
+
+</form>
+
+
 <!-- jQuery -->
 
 <script src="js/jquery.min.js"></script>
-<script src="js/wow.min.js"></script>
-<script src="js/smoothscroll.js"></script>
-<script src="js/animsition.js"></script>
-<script src="js/jquery.validate.min.js"></script>
-<script src="js/jquery.magnific-popup.min.js"></script>
-<script src="js/owl.carousel.min.js"></script>
 <script src="js/jquery.pagepiling.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/wow.min.js"></script>
+<script src="js/animsition.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/scripts.js"></script>
+<script>
+  (function(){
+    const modal = document.querySelector('.school-modal');
+    if(!modal) return;
+
+    const openBtn = document.querySelector('[data-school-modal-open]');
+    const closeBtns = modal.querySelectorAll('[data-school-modal-close]');
+    const search = modal.querySelector('.school-modal__search');
+    const chips = Array.from(modal.querySelectorAll('.chip'));
+
+    function open(){
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden','false');
+      if(search) { search.value=''; filter(''); search.focus(); }
+    }
+    function close(){
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden','true');
+    }
+    function filter(q){
+      const qq = (q||'').trim().toLowerCase();
+      chips.forEach(ch => {
+        const hit = ch.textContent.toLowerCase().includes(qq);
+        ch.style.display = hit ? '' : 'none';
+      });
+    }
+
+    openBtn && openBtn.addEventListener('click', open);
+    closeBtns.forEach(btn => btn.addEventListener('click', close));
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') close(); });
+    search && search.addEventListener('input', (e)=>filter(e.target.value));
+  })();
+</script>
 
 <!-- Scripts -->
-<script src="js/scripts.js"></script> 
-</body>
-</html>
+<script src="js/scripts.js?v=999"></script> 
+<script>
+  const schools = [
+    { date: '2025.12.11', name: '양주 회천중학교', img: 'images/schools/school-01.jpg' },
+    { date: '2025.12.30', name: '이천사동중학교', img: 'images/schools/school-02.jpg' },
+    { date: '2025.12.29', name: '판곡중학교',     img: 'images/schools/school-03.jpg' },
+{ date: '2025.12.26', name: '단원고등학교',     img: 'images/schools/school-04.jpg' },
+{ date: '2025.12.22', name: '광교호수중학교',     img: 'images/schools/school-05.jpg' },
+{ date: '2025.12.23', name: '용마중학교',     img: 'images/schools/school-06.jpg' },
+{ date: '2025.12.24', name: '동패중학교',     img: 'images/schools/school-07.jpg' },
+{ date: '2025.12.19', name: '신남중학교',     img: 'images/schools/school-08.jpg' },
+{ date: '2025.12.18', name: '천안 불무중학교',     img: 'images/schools/school-09.jpg' },
+{ date: '2025.12.17', name: '보은여자중학교',     img: 'images/schools/school-10.jpg' },
+    { date: '2025.12.16', name: '아산 음봉중학교', img: 'images/schools/school-11.jpg' },
+    { date: '2025.12.15', name: '수원 세류중학교', img: 'images/schools/school-12.jpg' },
+    { date: '2025.12.12', name: '당산중학교',     img: 'images/schools/school-13.jpg' },
+{ date: '2025.12.10', name: '수원 대평중학교',     img: 'images/schools/school-14.jpg' },
+{ date: '2025.12.09', name: '보덕중학교',     img: 'images/schools/school-15.jpg' },
+{ date: '2025.12.08', name: '청주 오송중학교',     img: 'images/schools/school-16.jpg' },
+{ date: '2025.12.05', name: '서울 봉천초등학교',     img: 'images/schools/school-17.jpg' },
+{ date: '2025.12.04', name: '군포 E-비지니스고등학교',     img: 'images/schools/school-18.jpg' },
+{ date: '2025.12.03', name: '전주 동중학교',     img: 'images/schools/school-19.jpg' },
+{ date: '2025.12.02', name: '성보고등학교',     img: 'images/schools/school-20.jpg' },
+    { date: '2025.12.01', name: '논산여자중학교', img: 'images/schools/school-21.jpg' },
+    { date: '2025.11.28', name: '진접중학교', img: 'images/schools/school-22.jpg' },
+    { date: '2025.11.27', name: '당곡중학교',     img: 'images/schools/school-23.jpg' },
+{ date: '2025.11.21', name: '보은고등학교',     img: 'images/schools/school-24.jpg' },
+{ date: '2025.11.19', name: '발곡중학교',     img: 'images/schools/school-25.jpg' },
+{ date: '2025.11.17', name: '묵호중학교',     img: 'images/schools/school-26.jpg' },
+{ date: '2025.11.14', name: '세종 새롬중학교',     img: 'images/schools/school-27.jpg' },
+{ date: '2025.11.13', name: '청주 대성중학교',     img: 'images/schools/school-28.jpg' },
+{ date: '2025.11.11', name: '화천중학교',     img: 'images/schools/school-29.jpg' },
+{ date: '2025.11.10', name: '조치원중학교',     img: 'images/schools/school-30.jpg' },
+{ date: '2025.11.07', name: '인천 굴포초등학교',     img: 'images/schools/school-31.jpg' },
+{ date: '2025.11.05', name: '은평청소년수련관',     img: 'images/schools/school-32.jpg' },
+{ date: '2025.11.04', name: '전주 남초등학교',     img: 'images/schools/school-33.jpg' },
+{ date: '2025.10.31', name: '강북교육박람회',     img: 'images/schools/school-34.jpg' },
+{ date: '2025.10.30', name: '청주 율량중학교',     img: 'images/schools/school-35.jpg' },
+    { date: '2025.10.24', name: '세종 두루중학교', img: 'images/schools/school-36.jpg' },
+    { date: '2025.10.22', name: '온양 신정중학교', img: 'images/schools/school-37.jpg' },
+    { date: '2025.10.21', name: '소의초등학교',     img: 'images/schools/school-38.jpg' },
+{ date: '2025.10.15', name: '아산 음봉중학교',     img: 'images/schools/school-39.jpg' },
+{ date: '2025.10.02', name: '논산여자중학교',     img: 'images/schools/school-40.jpg' },
+{ date: '2025.10.01', name: '이리영등중학교',     img: 'images/schools/school-41.jpg' },
+{ date: '2025.09.24', name: '관악중학교',     img: 'images/schools/school-42.jpg' },
+{ date: '2025.09.22', name: '용인 서천초등학교',     img: 'images/schools/school-43.jpg' },
+{ date: '2025.09.11', name: '서운중학교',     img: 'images/schools/school-44.jpg' },
+{ date: '2025.09.09', name: '개운중학교',     img: 'images/schools/school-45.jpg' },
+    { date: '2025.07.22', name: '안산 본원초등학교', img: 'images/schools/school-46.jpg' },
+    { date: '2025.07.17', name: '안산 선부고등학교', img: 'images/schools/school-47.jpg' },
+    { date: '2025.07.15', name: '온양중학교',     img: 'images/schools/school-48.jpg' },
+{ date: '2025.07.11', name: '서울 인헌중학교',     img: 'images/schools/school-49.jpg' },
+{ date: '2025.07.10', name: '익산 왕궁중학교',     img: 'images/schools/school-50.jpg' },
+{ date: '2025.07.09', name: '이천 효양중학교',     img: 'images/schools/school-51.jpg' },
+{ date: '2025.07.08', name: '아산 연화초등학교',     img: 'images/schools/school-52.jpg' },
+{ date: '2025.07.07', name: '경기모바일과학고등학교',     img: 'images/schools/school-53.jpg' },
+{ date: '2025.07.04', name: '성남 도촌중학교',     img: 'images/schools/school-54.jpg' },
+{ date: '2025.07.03', name: '서울 대청중학교',     img: 'images/schools/school-55.jpg' },
+    { date: '2025.07.02', name: '서울 중계중학교', img: 'images/schools/school-56.jpg' },
+    { date: '2025.07.01', name: '양동중학교', img: 'images/schools/school-57.jpg' },
+    { date: '2025.06.30', name: '수원 서호중학교',     img: 'images/schools/school-58.jpg' },
+{ date: '2025.06.13', name: '남부초등학교',     img: 'images/schools/school-59.jpg' },
+{ date: '2025.06.12', name: '서울 당곡초등학교',     img: 'images/schools/school-60.jpg' },
+{ date: '2025.05.23', name: '서울 동작초등학교',     img: 'images/schools/school-62.jpg' },
+{ date: '2025.05.30', name: '전주 기전중학교',     img: 'images/schools/school-61.jpg' },
+{ date: '2025.12.29', name: '판곡중학교',     img: 'images/schools/school-58.jpg' },
+{ date: '2025.12.29', name: '판곡중학교',     img: 'images/schools/school-59.jpg' },
+{ date: '2025.12.29', name: '판곡중학교',     img: 'images/schools/school-60.jpg' },
+    { date: '2025.12.11', name: '양주 회천중학교', img: 'images/schools/school-61.jpg' },
+    { date: '2025.12.30', name: '이천사동중학교', img: 'images/schools/school-62.jpg' },
+
+
+    // 여기만 계속 추가
+  ];
+
+  const wrap = document.getElementById('schoolCarousel');
+  wrap.innerHTML = schools.map(s => `
+    <a class="school-item" href="#" title="${s.name}">
+      <img src="${s.img}" alt="${s.name}">
+      <div class="school-meta">
+        <div class="school-date">${s.date}</div>
+        <div class="school-name">${s.name}</div>
+      </div>
+    </a>
+  `).join('');
+
+  $('.school-carousel').owlCarousel({
+    loop: true,
+    margin: 18,
+    nav: true,
+    dots: false,
+    autoplay: true,
+    autoplayTimeout: 2600,
+    autoplayHoverPause: true,
+    responsive: {
+      0: { items: 1 },
+      576: { items: 2 },
+      768: { items: 3 },
+      1200: { items: 4 }
+    }
+  });
+</script>

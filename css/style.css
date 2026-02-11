@@ -1072,8 +1072,7 @@ a.brand:focus{
 }
 
 .pagepiling .pp-scrollable{
-  padding: 0;
-  overflow-x:hidden;
+  overflow: auto;
 }
 
 .pp-scrollable .vertical-centred{
@@ -1825,44 +1824,8 @@ a.brand:focus{
   transform: none;
 }
 
-.review-carousel .owl-prev,
-.review-carousel .owl-next{
-  font-size: 1.2857rem;
-  width: 3.57rem;
-  height: 3.57rem;
-  line-height: 3.57rem;
-  border:1px solid #fff;
-  color: #fff;
-  text-align: center;
-  margin-right: 0.857rem;
-}
 
-.review-carousel .owl-prev:before{
-  font-family: 'Linearicons';
-  content: "\e93b";
-}
 
-.review-carousel .owl-next:before{
-  font-family: 'Linearicons';
-  content: "\e93c";
-}
-
-.review-carousel .owl-prev:hover,
-.review-carousel .owl-next:hover{
-  background: #fff;
-  color: #000;
-}
-
-.review-carousel .owl-prev.disabled,
-.review-carousel .owl-next.disabled{
-  cursor: default;
-}
-
-.review-carousel .owl-prev.disabled:hover,
-.review-carousel .owl-next.disabled:hover{
-  background: none;
-  color: #fff;
-}
 
 .owl-dots{
   text-align: center;
@@ -2188,184 +2151,1209 @@ a.brand:focus{
   margin-bottom: 2.2rem;
   max-width: 56rem;
 }
-/* 포스터 hover 텍스트 */
-.poster-card{
-  position: relative;
-  overflow: hidden;
+
+.hero-title-main {
+  font-size: 48px;
+  font-weight: 800;
 }
 
-/* 이미지 확대 */
-.poster-card img{
-  transition: transform 0.35s ease;
+.hero-title-sub {
+  font-size: 20px;
+  font-weight: 600;
+  opacity: 0.85;
+  margin-top: 8px;
 }
 
-.poster-card:hover img{
-  transform: scale(1.04);
+
+
+
+.hero-cta {
+  display: flex;
+  gap: 14px;
+  margin-top: 22px;
 }
 
-/* hover 텍스트 */
-.poster-hover{
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 18px;
-  text-align: center;
+.btn-primary {
+  background: #ff3b7a;
   color: #fff;
-  font-size: 15px;
-  letter-spacing: 0.05em;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.3s ease;
-  pointer-events: none;
+  padding: 14px 20px;
+  border-radius: 14px;
+  font-weight: 700;
 }
 
-/* hover 시 등장 */
-.poster-card:hover .poster-hover{
-  opacity: 1;
-  transform: translateY(0);
+.btn-secondary {
+  border: 1px solid rgba(255,255,255,0.35);
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: 14px;
 }
 
-/* 커서 */
-.poster-card:hover{
-  cursor: pointer;
+/* =========================
+   CUSTOM OVERRIDES (clean)
+   ========================= */
+
+/* 1) Fonts */
+html, body{
+  font-family:"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    "Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic","Segoe UI",Roboto,Arial,sans-serif;
+  letter-spacing:-0.2px;
 }
 
-/* 포스터 hover 효과 */
-.poster-card{
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-  will-change: transform;
+h1, h2, h3, .title, .heading, .menu, .navbar, .btn, .hero-title{
+  font-family:"GmarketSans","Pretendard Variable",Pretendard,sans-serif;
+  letter-spacing:-0.6px;
+  font-weight:700;
 }
 
-.poster-card img{
-  transition: transform 0.35s ease;
+.hero-sub{
+  font-size:16px;
+  line-height:1.6;
+  opacity:0.95;
 }
 
-.poster-card:hover img{
-  transform: scale(1.04);
-}
-
-.poster-card:hover{
-  cursor: pointer;
-}
-
-
-/* 포스터 하단 텍스트 가독성 유지 */
-.section-3 .poster-meta{
-  margin-top: 12px;
-}
-
-/* 포스터 이미지 높이 제한 (텍스트 포함 한 화면) */
-.section-3 .poster-card img{
-  width: 100%;
-  height: 55vh;      /* 핵심 포인트 */
-  max-height: 520px; /* 큰 화면 대비 안전장치 */
-  object-fit: contain;
-  display: block;
-}
-/* page3 제목이 상단 로고랑 겹치지 않게 */
+/* 2) Page 3 Posters spacing */
 .section-3 .scrollable-content{
-  padding-top: 40px;
-  box-sizing: border-box;
+  padding-top:100px; /* 헤더/로고와 겹침 방지 */
+  box-sizing:border-box;
+  overflow: visible; /* scale/hover 잘림 방지 */
 }
 
-/* 클릭을 가로채는 투명 레이어 차단 */
-.click-capture{
-  pointer-events: none !important;
-}
-}
-/* 글자 크기 조금 키우기 */
-.poster-title{ font-size: 1.2rem; font-weight: 700; color:#fff; }
-.poster-sub{ font-size: 1rem; opacity: .8; color:#fff; }
-
-/* page3 포스터 섹션 20% 축소 */
-.poster-grid,
-.poster-row,
-.posters-wrap{
-  transform: scale(0.2);
-  transform-origin: top center;
-
-/* scale로 줄이면 아래가 잘릴 수 있어서 높이/여백 보정 */
-.section-3 .scrollable-content,
-.section-3 .vertical-centred {
-  overflow: visible;
-}
-
-
-/* page3 포스터 20% 축소 */
-.posters-wrap{
-  transform: scale(0.8);
-  transform-origin: top center;
-}
-
-/* 클릭 막는 레이어 대비 */
-.poster-card{
-  position: relative;
-  z-index: 5;
-}
-
-/* scale로 인해 잘리는 경우 방지 */
-.section-3 .scrollable-content{
-  overflow: visible;
-}
-.click-capture{
-  pointer-events: none;
-}
-
-/* 포스터 카드 클릭 안되는 경우(덮는 레이어) */
-.click-capture { pointer-events: none; }
-
-/* 혹시 섹션/오버레이가 덮는 경우 대비 */
-.section, .scroll-wrap, .scrollable-content { pointer-events: auto; }
-.poster-card { position: relative; z-index: 9999; }
-
-/* 포스터 섹션 링크가 최상단에서 클릭되도록 */
-.section-3 .poster-card{
-  position: relative;
-  z-index: 9999;
-  pointer-events: auto !important;
-}
-
-/* 섹션 내에서만 링크 클릭 허용 */
-.section-3 .scrollable-content,
+.section-3 .vertical-centred,
 .section-3 .scroll-wrap,
 .section-3 .pp-scrollable{
+  overflow: visible;
   pointer-events: auto;
 }
 
-/* page3 posters spacing tuning */
-.section-3 .posters-title{
-  margin: 0 0 18px 0;   /* 기존 mb-5 느낌 줄임 */
-  padding: 0;          /* pb 제거 */
-}
-.section-3 .row.g-4{
-  --bs-gutter-y: 14px;
-  --bs-gutter-x: 18px;
-}
-
 .section-3 .container-fluid{
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left:40px;
+  padding-right:40px;
 }
 
-/* 화면이 작으면 너무 빡빡해지니 */
-@media (max-width: 768px){
+@media (max-width:768px){
   .section-3 .container-fluid{
-    padding-left: 18px;
-    padding-right: 18px;
-}
-/* page3 제목 위치 조정 */
-.section-3 .posters-title{
-  margin-top: 50px;   /* ← 핵심 */
-  margin-bottom: 20px;
-}
-
-@media (min-width: 992px){
-  .section-3 .posters-title{
-    margin-top: 110px;
+    padding-left:18px;
+    padding-right:18px;
   }
 }
-/* page3: 상단 헤더(로고/연락처)와 겹치지 않게 안전 여백 */
-.section-3 .scrollable-content{
-  padding-top: 100px;  /* ← 이 값만 조절하면 됨 (100~140 사이 추천) */
+
+/* 3) Posters title */
+.section-3 .posters-title{
+  margin-top:50px;
+  margin-bottom:20px;
+  padding:0;
+}
+
+@media (min-width:992px){
+  .section-3 .posters-title{
+    margin-top:110px;
+  }
+}
+
+/* 4) Poster cards (single source of truth) */
+.poster-card{
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+  will-change: transform;
+  z-index:5; /* 섹션 오버레이보다 위 */
+}
+
+.poster-card img{
+  width:100%;
+  height:55vh;
+  max-height:520px;
+  object-fit:contain;
+  display:block;
+  transition: transform 0.35s ease;
+}
+
+.poster-card:hover img{
+  transform: scale(1.04);
+}
+
+.poster-hover{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:18px;
+  text-align:center;
+  color:#fff;
+  font-size:15px;
+  letter-spacing:0.05em;
+  opacity:0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  pointer-events:none;
+}
+
+.poster-card:hover .poster-hover{
+  opacity:1;
+  transform: translateY(0);
+}
+
+.poster-title{ font-size:1.2rem; font-weight:700; color:#fff; }
+.poster-sub{ font-size:1rem; opacity:.8; color:#fff; }
+.section-3 .poster-meta{ margin-top:12px; }
+
+/* 6) Click-capture overlay blocks clicks (keep once) */
+.click-capture{
+  pointer-events:none !important;
+}
+/* ===== Hero copy (Magicator line) ===== */
+.hero-title{
+  margin: 0 0 10px;
+  line-height: 1.15;
+}
+.hero-title{
+  color: var(--text-color);
+}
+
+.hero-tagline{
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #fff;
+  opacity: 0.85;
+}
+
+.hero-tagline strong{
+  font-weight: 900;
+}
+.hero-title{
+  font-size: 44px; /* 48~56 사이에서 취향대로 */
+}
+@media (max-width: 768px){
+  .hero-title{ font-size: 30px; }
+}
+
+.word-magic{
+  color: var(--point-color);
+  font-weight: 700;
+}
+
+.word-message{
+  background: var(--point-color);
+  color: #fff;
+  padding: 0.15em 0.45em;
+  border-radius: 6px;
+  font-weight: 700;
+}
+.hero-sub{
+  color: #444;
+}
+
+
+
+
+
+/* 상단 전화번호 / 이메일 폰트 키우기 */
+.contacts .contact-item {
+  font-size: 1.2rem;   /* 기본보다 큼 (원하면 1.3~1.5까지 가능) */
+  font-weight: 500;
+}
+/* 카카오톡 플로팅 버튼 */
+.kakao-float {
+  position: fixed;
+  right: 5rem;
+  bottom: 5rem;
+  width: 70px;
+  height: 64px;
+  z-index: 9999;
+  border-radius: 50%;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.kakao-float img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.kakao-float:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.45);
+}
+
+/* Schools carousel */
+.school-carousel .school-item{
+  display:block;
+  border-radius:14px;
+  overflow:hidden;
+  background:#111;
+  border:1px solid rgba(255,255,255,0.08);
+  text-decoration:none;
+  aspect-ratio: 4 / 3;   /* ✅ 네모 느낌의 핵심 */
+  max-width: 360px;      /* ✅ 한 카드가 너무 커지는 거 방지 */
+}
+
+.school-carousel .school-item img{
+  width:100%;
+  height:170px;
+  object-fit:cover;
+  display:block;
+  filter:saturate(0.95) contrast(1.05);
+}
+
+.school-carousel .school-meta{
+  padding:12px 14px;
+}
+
+.school-carousel .school-date{
+  font-size:0.9rem;
+  opacity:0.75;
+}
+
+.school-carousel .school-name{
+  margin-top: 1px;
+  font-size:1.05rem;
+  font-weight:800;
+  color:#fff;
+}
+
+/* 캐러셀 버튼(nav) - 기존 review-carousel nav 스타일을 그대로 활용해도 됨 */
+.school-carousel .owl-nav{
+  margin-top:16px;
+}
+
+
+/* 아이템이 카드 폭을 제대로 가지게 */
+.school-carousel .school-item{
+  width: 320px;                      /* 카드 폭 (원하면 280~360) */
+}
+@media (max-width: 576px){
+  .school-carousel .school-item{ width: 86vw; }  /* 모바일은 거의 한 장 */
+}
+/* 학교 캐러셀 prev / next 숨기기 */
+.school-carousel .owl-nav{
+  display: none !important;
+}
+
+/* page3(대표 공연 포스터) 위쪽 공간 줄이기 */
+.section-3 .vertical-centred{
+  padding-top: 1rem !important;   /* 10.3rem → 3rem */
+}
+
+.section-3 .posters-title{
+  margin-top: 10px !important;    /* 50~110px → 10px */
+}
+
+/* 공연 사진 더 보기 - 아이콘 hover 효과 */
+.insta-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:1.2em;              /* 이미 키워둔 상태 */
+  font-weight:600;
+  color:#fff;
+  text-decoration:none;
+}
+
+.insta-link i{
+  font-size:1.2em;
+  color:#E1306C;               /* 인스타 핑크 */
+  transition: transform 0.25s ease;
+}
+
+/* hover 시 아이콘만 커지기 */
+.insta-link:hover i{
+  transform: scale(1.25);
+}
+/* 후기 캐러셀 */
+.reviews-wrap{
+  margin-top: 22px;
+  max-width: 980px;
+}
+
+.reviews-head{
+  margin-bottom: 10px;
+}
+
+.reviews-title{
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+}
+
+.reviews-sub{
+  margin-top: 4px;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.review-carousel .review-item{
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 14px;
+  padding: 16px 18px;
+}
+
+.review-quote{
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #fff;
+}
+
+.review-meta{
+  margin-top: 10px;
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+
+/* dots(점) 꾸미기 - 원하면 */
+.review-carousel .owl-dots{
+  margin-top: 10px;
+}
+.review-carousel .owl-dot span{
+  width: 8px; height: 8px;
+  display: inline-block;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  margin: 0 4px;
+}
+.review-carousel .owl-dot.active span{
+  background: rgba(255,255,255,0.7);
+}
+.student-bites{
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 980px;
+}
+
+.student-bites .bite{
+  font-size: 0.86rem;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  opacity: 0.85;
+}
+/* 교육 후기(정돈 버전) */
+.edu-proof{
+  margin-top: 14px;
+  max-width: 980px;
+}
+
+.edu-proof-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.edu-proof-title{
+  margin:0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color:#fff;
+}
+
+.edu-proof-tags{
+  display:flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.edu-proof-tags .tag{
+  font-size: 0.82rem;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  opacity: 0.85;
+}
+
+/* 후기 카드 3개: 깔끔한 그리드 */
+.edu-reviews{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+.edu-review{
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+
+.edu-quote{
+  font-size: 0.96rem;
+  line-height: 1.55;
+  color:#fff;
+}
+
+.edu-meta{
+  margin-top: 10px;
+  font-size: 0.84rem;
+  opacity: 0.7;
+}
+
+/* 후기 아래 CTA(인스타) 정돈 */
+.edu-cta{
+  display:inline-flex;
+  margin-top: 12px;
+}
+
+/* 반응형 */
+@media (max-width: 991px){
+  .edu-reviews{ grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 767px){
+  .edu-proof-head{ align-items:flex-start; flex-direction:column; }
+  .edu-reviews{ grid-template-columns: 1fr; }
+}
+.insta-link i{ transition: transform .25s ease; }
+.insta-link:hover i{ transform: scale(1.25); }
+/* ===== Page2 Clean ===== */
+.review-clean { max-width: 1100px; margin: 0 auto; }
+
+.review-head { margin-bottom: 44px; }
+.review-title { font-size: 44px; line-height: 1.15; margin: 0 0 10px; }
+.review-desc { margin: 0; opacity: .75; font-size: 16px; }
+
+.review-block {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 22px 22px;
+  margin-bottom: 18px;
+}
+
+.block-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.block-title { margin: 0; font-size: 22px; }
+.block-sub { opacity: .65; font-size: 13px; }
+.block-link { font-size: 14px; opacity: .8; text-decoration: none; }
+.block-link:hover { opacity: 1; text-decoration: underline; }
+
+.quote-list { display: grid; gap: 12px; }
+
+.quote {
+  margin: 0;
+  padding: 16px 16px;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.22);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.quote blockquote { margin: 0 0 8px; font-size: 16px; line-height: 1.55; }
+.quote figcaption { opacity: .7; font-size: 13px; }
+
+.review-actions { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
+
+.btn-ghost{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.02);
+  text-decoration: none;
+  font-size: 14px;
+}
+.btn-ghost:hover{
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.18);
+}
+
+/* 반응형 */
+@media (max-width: 768px){
+  .review-title { font-size: 30px; }
+  .review-block { padding: 18px; }
+  .block-head { align-items: flex-start; flex-direction: column; }
+}
+/* ===== Inquiry form page (page8) ===== */
+.section-8{
+  background:#f5f6f8;
+  color:#111;
+}
+
+.inq-wrap{ max-width: 1080px; margin: 0 auto; padding: 10px 0 40px; }
+
+.inq-head{ display:flex; flex-direction:column; gap: 14px; margin-bottom: 18px; }
+.inq-title{ margin:0; font-size: 28px; font-weight: 800; }
+
+.inq-steps{
+  list-style:none;
+  padding:0; margin:0;
+  display:flex; gap: 16px;
+  align-items:center;
+  flex-wrap: wrap;
+}
+.inq-step{
+  display:flex; align-items:center; gap:10px;
+  color:#6b7280;
+  font-weight: 700;
+}
+.inq-step-num{
+  width:28px; height:28px; border-radius:999px;
+  display:flex; align-items:center; justify-content:center;
+  border:1px solid #d1d5db;
+  background:#fff;
+  font-size: 13px;
+}
+.inq-step.is-active{ color:#111; }
+.inq-step.is-active .inq-step-num{
+  background:#e11d74; border-color:#e11d74; color:#fff;
+}
+
+.inq-card{
+  background:#fff;
+  border-radius: 18px;
+  box-shadow: 0 14px 32px rgba(0,0,0,.10);
+  padding: 24px;
+}
+
+.inq-card-title{
+  margin:0 0 16px;
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.inq-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 16px;
+}
+
+.inq-field{ display:flex; flex-direction:column; gap:8px; }
+.inq-field.is-full{ grid-column: 1 / -1; }
+
+.inq-label{
+  font-size: 14px;
+  font-weight: 800;
+  color:#374151;
+}
+.req{ color:#ef4444; }
+
+.inq-control{
+  height: 48px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background:#fff;
+  padding: 0 14px;
+  outline: none;
+  font-size: 14px;
+}
+
+.inq-control:focus{
+  border-color: rgba(225,29,116,.55);
+  box-shadow: 0 0 0 4px rgba(225,29,116,.12);
+}
+
+.inq-input-with-btn{
+  position: relative;
+}
+.inq-input-with-btn .inq-control{ padding-right: 42px; }
+
+
+.inq-clear{
+  position:absolute;
+  right: 10px; top: 50%;
+  transform: translateY(-50%);
+  width: 28px; height: 28px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background:#fff;
+  color:#9ca3af;
+  font-weight: 900;
+  line-height: 1;
+}
+.inq-clear:hover{ color:#6b7280; }
+.class-list{ margin-top: 18px; }
+.class-list-title{ margin: 0 0 10px; font-size: 16px; font-weight: 900; color:#111; }
+.class-item{
+  display:flex; justify-content:space-between; gap:12px;
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background:#fff;
+  margin-bottom: 10px;
+}
+.class-item .meta{ display:flex; flex-direction:column; gap:4px; }
+.class-item .meta .line1{ font-weight: 900; }
+.class-item .meta .line2{ color:#6b7280; font-size: 13px; }
+.class-item .actions{ display:flex; align-items:center; gap:8px; }
+.class-item .del{
+  border:1px solid #e5e7eb; background:#fff;
+  border-radius: 10px; padding: 8px 10px;
+  font-weight: 800; cursor:pointer;
+}
+.class-item .del:hover{ background:#f3f4f6; }
+/* 학년 + 학급수 같은 줄 */
+.inq-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 16px;
+}/* ===== Time UX ===== */
+.inq-time-row{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 560px){
+  .inq-time-row{ grid-template-columns: 1fr; }
+}
+
+.inq-help{
+  margin: 6px 0 0;
+  font-size: 13px;
+  color:#6b7280;
+}
+
+.inq-error{
+  margin: 8px 0 0;
+  font-size: 13px;
+  font-weight: 800;
+  color:#dc2626;
+  min-height: 16px; /* 레이아웃 흔들림 방지 */
+}
+
+.is-error .inq-control{
+  border-color:#dc2626 !important;
+  box-shadow: 0 0 0 4px rgba(220,38,38,.12) !important;
+}
+
+@keyframes shakeX {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.shake{
+  animation: shakeX .28s ease-in-out;
+}
+.inq-choice{
+  display:flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: 14px;
+}
+.inq-choice label{
+  display:flex;
+  align-items:center;
+  gap: 6px;
+}
+/* ===== Step1 compact rows ===== */
+.inq-grid-3{
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 12px;
+}
+
+.inq-grid-2tight{
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 12px;
+}
+
+.inq-mini{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.inq-mini-label{
+  min-width: 42px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #6b7280;
+}
+
+.inq-error{
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ef4444;
+}
+
+/* timeField error UX (JS에서 class 토글) */
+#timeField.is-error .inq-control{
+  border-color: rgba(239,68,68,0.9);
+  box-shadow: 0 0 0 4px rgba(239,68,68,0.10);
+}
+
+#timeField.shake{
+  animation: inqShake 0.32s ease;
+}
+@keyframes inqShake{
+  0%{ transform: translateX(0); }
+  25%{ transform: translateX(-6px); }
+  50%{ transform: translateX(6px); }
+  75%{ transform: translateX(-4px); }
+  100%{ transform: translateX(0); }
+}
+
+/* ===== Buttons unified ===== */
+.inq-actions{
+  margin-top: 20px;
+}
+
+.btn-soft{
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  color: #374151;
+}
+
+.btn-soft:hover{
+  background:#f9fafb;
+}
+
+.btn-primary{
+  background: linear-gradient(135deg, #e11d74, #f43f5e);
+}
+
+.btn-primary:hover{
+  filter: brightness(1.05);
+}
+
+/* mobile: 3칸 → 1칸 */
+@media (max-width: 520px){
+  .inq-grid-3,
+  .inq-grid-2tight{
+    grid-template-columns: 1fr;
+  }
+  .inq-mini{
+    align-items: stretch;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .inq-mini-label{
+    min-width: 0;
+  }
+  .inq-actions{
+    grid-template-columns: 1fr;
+  }
+}
+.inq-core {
+  padding: 20px;
+  background: #fafafa;
+  border-radius: 16px;
+  border: 1px solid #eee;
+  margin: 20px 0;
+}
+
+.inq-core{
+  margin: 28px 0;
+  padding: 24px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 18px;
+}
+
+/* ===== Inquiry form override (page8 stepper only) ===== */
+#inqStepper input[type="text"],
+#inqStepper input[type="address"],
+#inqStepper input[type="url"],
+#inqStepper input[type="password"],
+#inqStepper input[type="email"],
+#inqStepper input[type="search"],
+#inqStepper input[type="tel"],
+#inqStepper input[type="number"],
+#inqStepper input[type="date"],
+#inqStepper input[type="time"],
+#inqStepper textarea,
+#inqStepper select{
+  background-color: #fff !important;
+  color: #111 !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 12px !important;
+}
+
+/* placeholder 색 */
+#inqStepper input::placeholder,
+#inqStepper textarea::placeholder{
+  color: #9ca3af !important;
+}
+/* Step1 blocks */
+.inq-block{
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid #eef2f7;
+}
+
+.inq-block:first-child{
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.inq-block-title{
+  font-size: 14px;
+  font-weight: 900;
+  color: #111;
+  margin-bottom: 10px;
+}
+/* Step1 action bar */
+.inq-actions-bar{
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid #eef2f7;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.inq-actions-bar button{
+  height: 52px;
+  border-radius: 14px;
+  font-weight: 900;
+}
+
+/* 수업 추가: 서브 */
+.inq-actions-bar #btnAddClass{
+  border: 1px solid #e5e7eb;
+  background: #fff;
+}
+
+/* 다음: 메인 */
+.inq-actions-bar #btnNext{
+  border: 0;
+  background: #ff2b78;
+  color: #fff;
+}
+/* ===== Card style (Step1) ===== */
+.inq-panel[data-step="1"] .inq-block{
+  margin-top: 16px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #eef2f7;
+  border-radius: 16px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+}
+
+.inq-panel[data-step="1"] .inq-block-title{
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 900;
+  color: #111;
+}
+
+/* 라벨 간격 정돈 */
+.inq-panel[data-step="1"] .inq-label{
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #111;
+}
+.inq-panel[data-step="1"] .inq-field{
+  margin-top: 12px;
+}
+
+/* 2열/3열 그리드 */
+.inq-grid-2{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.inq-grid-3{
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 12px;
+}
+
+/* 카드 안에서는 input의 과한 그림자 제거(검정 input이어도 덜 튐) */
+.inq-panel[data-step="1"] .inq-control{
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+
+/* 일시/시간 mini 라벨 */
+.inq-mini{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.inq-mini-label{
+  font-size: 12px;
+  font-weight: 800;
+  color: #6b7280;
+}
+
+/* 버튼 바 */
+.inq-actions-bar{
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #eef2f7;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.inq-actions-bar button{
+  height: 52px;
+  border-radius: 14px;
+  font-weight: 900;
+}
+.inq-actions-bar #btnAddClass{
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  color: #111;
+}
+.inq-actions-bar #btnNext{
+  border: 0;
+  background: #ff2b78;
+  color: #fff;
+}
+
+/* 모바일 */
+@media (max-width: 520px){
+  .inq-grid-2, .inq-grid-3{
+    grid-template-columns: 1fr;
+  }
+}
+.inq-grid-2{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 520px){
+  .inq-grid-2{ grid-template-columns: 1fr; }
+}
+/* 🔥 FORCE GRID OVERRIDE */
+.inq-grid-2tight {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 12px !important;
+}
+
+.inq-grid-2tight > .inq-field {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+/* ================================
+   Inquiry Step 1 – Tight Grid FIX
+   ================================ */
+
+/* 학년 + 학급수 2열 고정 */
+.inq-grid-2.is-tight {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 12px !important;
+}
+
+/* 내부 필드가 줄 안 깨지게 */
+.inq-grid-2.is-tight .inq-field {
+  min-width: 0;
+}
+
+/* input / select 가 부모 폭 100% 차지 */
+.inq-grid-2.is-tight .inq-control {
+  width: 100%;
+}
+
+/* 추가된 수업 카드: 우상단 X 버튼 */
+.class-item{
+  position: relative;
+  padding-right: 42px; /* X 버튼 자리 확보 */
+}
+
+.class-close{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  color: #9ca3af;
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.class-close:hover{
+  background: #f3f4f6;
+  color: #111;
+}
+.class-item{ position:relative; padding-right:42px; }
+
+.class-close{
+  position:absolute; top:10px; right:10px;
+  width:28px; height:28px;
+  border-radius:10px;
+  border:1px solid #e5e7eb;
+  background:#fff;
+  color:#9ca3af;
+  font-size:18px;
+  font-weight:900;
+  cursor:pointer;
+}
+.class-close:hover{ background:#f3f4f6; color:#111; }
+
+.muted{ color:#6b7280; font-weight:600; }
+.inq-input-with-btn .inq-clear{
+  display:none;
+}
+
+header,
+#header,
+.navbar {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+/* 초기엔 투명 */
+header {
+  background: transparent !important;
+}
+
+/* 스크롤 시에도 배경 안 생기게 */
+header.scrolled,
+header.fixed {
+  background: transparent !important;
+}
+/* ✅ 상단 검정바(= .navbar-bg) 제거 */
+.navbar-bg{
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* 고정 상태에서도 배경 안 생기게 */
+.navbar-fixed .navbar-bg{
+  background: transparent !important;
+  box-shadow: none !important;
+}
+/* 1페이지(첫 섹션) 위쪽 검정 여백 제거 */
+.pagepiling .section.section-1{
+  padding-top: 0 !important;
+}
+
+/* 대신 내용만 내려주기(네비 높이만큼) */
+.pagepiling .section.section-1 .vertical-centred{
+  padding-top: 10.3rem !important;
+}
+/* ✅ pagepiling 섹션을 한 화면(100vh)로 딱 맞추기 */
+.pagepiling .section{
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* ✅ 내부 컨텐츠도 기본 패딩 제거(겹쳐서 길어지는 원인) */
+.pp-scrollable .vertical-centred{
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* ✅ 대신 “원하는 섹션만” 여백을 주고 싶으면 섹션별로 줘 */
+.section-1 .vertical-centred{
+  padding-top: 9rem !important;   /* 헤더 높이만큼 (원하면 7~11rem로 조절) */
+  padding-bottom: 3rem !important;
+}
+/* Hero accent */
+.hero-accent{
+  color:#c32865;   /* 기존 사이트 포인트 컬러 */
+  font-weight:900;
+}
+.hero-accent{
+  color:#c32865;
+  font-weight:900;
+  letter-spacing:-0.02em;
+}
+/* 메인 포인트 단어 */
+.hero-accent{
+  color:#c32865;
+  font-weight:900;
+}
+
+/* 메시지 박스 강조 */
+.hero-highlight{
+  display:inline-block;
+  background:#c32865;
+  color:#fff;
+  padding:0.08em 0.28em;
+  border-radius:0.12em;
+  font-weight:900;
+  line-height:1.1;
+}
+.hero-video{
+  margin-top: 22px;
+  max-width: 520px;
+}
+
+.hero-video-frame{
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+ width: min(820px, 92vw);
+  overflow: hidden;
+  background: #000;
+}
+.hero-video-el{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* 🔥 이게 핵심 */
+  background: #000;      /* 여백 생겨도 깔끔 */
+}
+
+.hero-video-frame iframe{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-video-note{
+  margin-top: 10px;
+  font-size: 12px;
+  opacity: 0.75;
+  color: #fff;
+}
+/* page2(선생님 후기/선택) 상단 제목 안 잘리게 */
+.section-2 .scrollable-content{
+  padding-top: 120px; /* 90~140 사이로 조절 */
   box-sizing: border-box;
+}
+.section-contact{
+  padding-top: 120px;
+}
+/* ✅ 섹션 내용이 길 때 상단 헤더에 안 걸리게: 가운데정렬 → 위정렬 */
+.section-2 .vertical-centred,
+.section-8 .vertical-centred{
+  justify-content: flex-start;   /* 가운데 정렬 제거 */
+  padding-top: 12rem;           /* 상단 헤더 높이만큼 여유 */
+  padding-bottom: 6rem;
+}
+/* 추가: 세부사항/갤러리 */
+.kv{
+  display:grid;
+  grid-template-columns: 120px 1fr;
+  gap:10px;
+  margin:0;
+}
+.kv dt{ color:rgba(255,255,255,.6); }
+.kv dd{ margin:0; color:rgba(255,255,255,.85); }
+
+.gallery{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap:10px;
+}
+.gimg{
+  width:100%;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow:0 10px 28px rgba(0,0,0,.28);
+}
+@media (max-width: 900px){
+  .gallery{ grid-template-columns: 1fr; }
 }
