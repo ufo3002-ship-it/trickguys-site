@@ -2376,6 +2376,16 @@ h1, h2, h3, .title, .heading, .menu, .navbar, .btn, .hero-title{
   box-shadow: 0 14px 30px rgba(0,0,0,0.45);
 }
 
+@media (max-width: 991px) {
+  .kakao-float{
+    width: 56px; height: 56px;
+    right: 16px; bottom: 16px;
+  }
+  .kakao-float img{ width: 100%; height: 100%; }
+  /* iPhone 하단 홈바 안전영역 고려 */
+  .kakao-float{ bottom: calc(16px + env(safe-area-inset-bottom)); }
+}
+
 /* Schools carousel */
 .school-carousel .school-item{
   display:block;
@@ -3356,4 +3366,207 @@ header.fixed {
 }
 @media (max-width: 900px){
   .gallery{ grid-template-columns: 1fr; }
+}
+/* =========================
+   Mobile layout cleanup
+   ========================= */
+@media (max-width: 991px) {
+  /* 1) pagepiling -> normal scroll */
+  #pagepiling.is-mobile-scroll .pp-scrollable,
+  #pagepiling.is-mobile-scroll .section {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+  #pagepiling.is-mobile-scroll .scroll-wrap,
+  #pagepiling.is-mobile-scroll .scrollable-content {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* 2) 상단 여백(고정 navbar 겹침 방지) */
+  .section { padding-top: 72px; }
+
+  /* 3) 히어로 텍스트 가독성 */
+  .hero-title { font-size: 28px; line-height: 1.25; }
+  .hero-tagline { font-size: 15px; opacity: .95; }
+
+  /* 4) 영상: 화면 폭 꽉 + 비율 유지 */
+  .hero-video-frame { width: 100%; }
+  .hero-video-el { width: 100%; height: auto; border-radius: 14px; }
+
+  /* 5) 포스터 카드: 모바일에서 간격/터치 개선 */
+  .poster-card { border-radius: 16px; overflow: hidden; }
+  .poster-meta { padding: 12px 12px 14px; }
+
+  /* 6) 문의 폼: 그리드 전부 1열로 */
+  .inq-grid,
+  .inq-grid-2tight,
+  .inq-grid-3,
+  .inq-grid.inq-grid-2tight {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  /* 7) 입력/버튼 터치영역 */
+  .inq-control { min-height: 48px; font-size: 16px; } /* iOS 자동 확대 방지용(16px) */
+  .btn-primary, .btn-soft { min-height: 48px; }
+
+  /* 8) 상단 연락처는 모바일에서 숨김(이미 d-none d-md-block) :contentReference[oaicite:5]{index=5} */
+  /* 필요하면 대신 CTA 버튼 노출 추천 (아래 3번 참고) */
+}
+
+@media (max-width: 991px){
+  input, select, textarea { font-size: 16px; }
+}
+/* =======================
+   Mobile Single CTA
+======================= */
+@media (max-width: 991px){
+
+  .hero-cta{
+    margin-top: 24px;
+  }
+
+  .btn-cta{
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 18px;
+    background: #ff3d00;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 16px;
+    font-size: 17px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+
+}
+/* =========================
+   Kakao bubble CTA
+========================= */
+
+.kakao-float{
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #1b1b1b;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  z-index: 999;
+}
+
+.kakao-float img{
+  width: 40px;
+  height: 40px;
+}
+
+/* 말풍선 */
+.kakao-bubble{
+  position: absolute;
+  right: 74px;
+  background: #fff;
+  color: #111;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  opacity: 0;
+  transform: translateY(5px);
+  transition: all 0.25s ease;
+}
+
+/* 말풍선 꼬리 */
+.kakao-bubble::after{
+  content:'';
+  position:absolute;
+  right:-6px;
+  top:50%;
+  transform:translateY(-50%);
+  width:12px;
+  height:12px;
+  background:#fff;
+  transform:translateY(-50%) rotate(45deg);
+}
+
+/* 모바일에서만 표시 */
+@media (max-width: 991px){
+
+  .kakao-bubble{
+    opacity:1;
+    transform: translateY(0);
+  }
+
+  .kakao-float{
+    bottom: calc(16px + env(safe-area-inset-bottom));
+  }
+
+}
+.kakao-float{ background:#FEE500; }
+.kakao-float__label{ color:#111; }
+/* =========================
+   page8 mobile fix (no pagepiling layout)
+========================= */
+@media (max-width: 991px){
+
+  /* pagepiling 템플릿용 nowrap/inline-block 중앙정렬 제거 */
+  .section-8 .scrollable-content{
+    white-space: normal !important;
+    font-size: 1rem !important;      /* font-size:0 무력화 */
+  }
+  .section-8 .scrollable-content:before{
+    display: none !important;        /* 100vh 가짜 높이 제거 */
+  }
+  .section-8 .vertical-centred{
+    display: block !important;
+    height: auto !important;
+  }
+
+  /* 패딩 너무 큰 것 줄이기(원래 10.3rem 들어가있음) */
+  .pp-scrollable .vertical-centred{
+    padding-top: 84px !important;    /* 상단 네비 고려 */
+    padding-bottom: 40px !important;
+  }
+
+  /* 카드/컨테이너 모바일 최적화 */
+  .inq-wrap{
+    padding: 0 12px 32px !important;
+  }
+  .inq-card{
+    padding: 16px !important;
+    border-radius: 16px !important;
+  }
+  .inq-title{
+    font-size: 22px !important;
+  }
+
+  /* 폼 그리드 전부 1열로 */
+  .inq-grid,
+  .inq-grid-2tight,
+  .inq-grid-3{
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  /* iOS 자동 확대 방지 + 터치감 */
+  .inq-control, input, select, textarea{
+    font-size: 16px !important;
+  }
+}
+@media (max-width: 991px){
+  .section-8{
+    padding-top: 96px !important; /* 상단 네비+로고 공간 */
+  }
+}
+@media (max-width: 991px){
+  .kakao-float{
+    bottom: calc(92px + env(safe-area-inset-bottom)) !important;
+  }
 }
