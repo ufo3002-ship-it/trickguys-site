@@ -3601,4 +3601,31 @@ header.fixed {
 
 }
 
+/* ==============================
+   page8 horizontal overflow FIX
+============================== */
+@media (max-width: 991px){
+
+  .section-8,
+  .section-8 .scroll-wrap,
+  .section-8 .scrollable-content{
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  /* vertical-centred 구조 완전 해제 */
+  .section-8 .vertical-centred{
+    display: block !important;
+    height: auto !important;
+    transform: none !important;
+  }
+
+  /* 카드가 화면 중앙에 정확히 오게 */
+  .inq-wrap{
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+}
 
