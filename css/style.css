@@ -3601,31 +3601,68 @@ header.fixed {
 
 }
 
-/* ==============================
-   page8 horizontal overflow FIX
-============================== */
+/* =========================
+   Page8: Mobile vertical form
+========================= */
 @media (max-width: 991px){
 
-  .section-8,
-  .section-8 .scroll-wrap,
-  .section-8 .scrollable-content{
+  /* 전체 폼을 “한 줄에 한 필드”로 */
+  .section-8 .inq-grid,
+  .section-8 .inq-grid-2,
+  .section-8 .inq-grid-2tight,
+  .section-8 .inq-grid-3{
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  /* input/select 튀어나옴 방지 */
+  .section-8 .inq-control,
+  .section-8 input,
+  .section-8 select,
+  .section-8 textarea{
     width: 100% !important;
     max-width: 100% !important;
-    overflow-x: hidden !important;
+    box-sizing: border-box !important;
   }
 
-  /* vertical-centred 구조 완전 해제 */
-  .section-8 .vertical-centred{
-    display: block !important;
-    height: auto !important;
-    transform: none !important;
+  /* 블록(섹션 제목) 간격 정리 */
+  .section-8 .inq-block-title{
+    margin: 18px 0 10px !important;
+    font-size: 15px !important;
   }
 
-  /* 카드가 화면 중앙에 정확히 오게 */
-  .inq-wrap{
-    width: 100% !important;
-    margin: 0 auto !important;
+  /* 카드 좌우 여백(모바일 꽉 차게) */
+  .section-8 .inq-wrap{
+    padding: 12px 12px 40px !important;
+  }
+  .section-8 .inq-card{
+    padding: 18px !important;
+    border-radius: 16px !important;
   }
 
+  /* 시간(일시/시작/종료)도 세로형 */
+  #timeField .inq-mini{
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+  }
+  #timeField .inq-mini-label{
+    min-width: 0 !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    color: #374151 !important;
+  }
+
+  /* 하단 버튼도 세로로(원하면) */
+  .section-8 .inq-actions{
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important; /* 두 개 유지 */
+    gap: 12px !important;
+  }
+}
+@media (min-width: 992px){
+  .region-grid{
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
