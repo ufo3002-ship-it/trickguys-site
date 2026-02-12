@@ -3829,27 +3829,28 @@ header.fixed {
   }
 
 }
-@media (max-width: 768px) {
-
-  .inq-choice input[type="radio"] {
-    width: 20px;
-    height: 20px;
+/* Mobile: radio와 글자 딱 붙이기 (최종 override) */
+@media (max-width: 768px){
+  #inqStepper .inq-choice{
+    width: 100%;
+    justify-content: space-between; /* 줄 전체는 넓게 */
+    gap: 0 !important;              /* 그룹 gap 제거 */
   }
 
+  #inqStepper .inq-choice label{
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important; /* label 내부는 왼쪽 붙이기 */
+    gap: 2px !important;                   /* ✅ 여기 숫자 줄이면 더 붙음 */
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #inqStepper .inq-choice input[type="radio"]{
+    margin: 0 2px 0 0 !important; /* ✅ 기본 마진 강제 제거 */
+  }
 }
-@media (max-width: 768px) {
 
-  .inq-choice label {
-    display: inline-flex;
-    align-items: center;
-    gap: 2px;              /* 거의 붙이기 */
-  }
-
-  .inq-choice input[type="radio"] {
-    margin: 0 2px 0 0;     /* 오른쪽 마진 최소화 */
-  }
-
-}
 
 
 
