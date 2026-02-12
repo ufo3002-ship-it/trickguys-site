@@ -820,3 +820,47 @@ body { cursor: none; }
     }
   });
 </script>
+<script>
+  function initSchoolCarousel(){
+    var $c = $('.school-carousel');
+    if(!$c.length) return;
+
+    // 이미 owl이 붙어있으면 refresh만
+    if($c.hasClass('owl-loaded')){
+      $c.trigger('refresh.owl.carousel');
+      return;
+    }
+
+    // owl이 안 붙어있으면 새로 초기화
+    $c.owlCarousel({
+      loop: true,
+      margin: 18,
+      nav: true,
+      dots: false,
+      autoplay: true,
+      autoplayTimeout: 2600,
+      autoplayHoverPause: true,
+      responsive: {
+        0: { items: 1 },
+        576: { items: 2 },
+        768: { items: 3 },
+        1200: { items: 4 }
+      }
+    });
+  }
+
+  // DOM 로드 후 한 번
+  $(function(){
+    initSchoolCarousel();
+
+    // 표시 타이밍 이슈 대비: 약간 텀 주고 한 번 더
+    setTimeout(initSchoolCarousel, 300);
+    setTimeout(initSchoolCarousel, 800);
+  });
+
+  // 화면 회전/리사이즈 시 폭 재계산
+  window.addEventListener('resize', function(){
+    initSchoolCarousel();
+  });
+</script>
+
