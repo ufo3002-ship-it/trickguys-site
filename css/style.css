@@ -3800,4 +3800,28 @@ header.fixed {
   }
 
 }
+/* =========================
+   Page8: 라디오(가능/불가/미정) 글자 가림 해결
+========================= */
+.section-8 .inq-choice{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+}
+
+.section-8 .inq-choice label{
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;          /* ✅ 동그라미-글자 간격 */
+  line-height: 1.2;
+  white-space: nowrap;            /* ✅ '가능'이 줄바꿈되며 깨지는거 방지 */
+}
+
+.section-8 .inq-choice input[type="radio"]{
+  flex: 0 0 auto;
+  margin: 0 !important;           /* ✅ iOS 기본 margin 꼬임 방지 */
+  width: 22px;                    /* ✅ 동그라미 크기 고정 */
+  height: 22px;
+}
 
