@@ -3886,5 +3886,29 @@ header.fixed {
     white-space: nowrap !important;
     color: #111 !important;
     font-size: 16px !important;
-    font-wei
+ font-weight: 800 !important; 
+  }
+/* ✅ 모바일에서는 네이티브 가로 슬라이드(스크롤+스냅)로 강제 */
+@media (max-width: 991px){
+  .school-carousel.is-native-scroll{
+    display: flex !important;
+    gap: 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 8px;
+  }
+
+  .school-carousel.is-native-scroll .school-item{
+    flex: 0 0 auto;
+    width: 86vw;                 /* 한 장 크게 */
+    scroll-snap-align: start;
+  }
+
+  /* 스크롤바 보기 싫으면 */
+  .school-carousel.is-native-scroll::-webkit-scrollbar{
+    height: 6px;
+  }
+}
+
 
