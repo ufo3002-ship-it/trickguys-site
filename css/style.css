@@ -2732,11 +2732,7 @@ h1, h2, h3, .title, .heading, .menu, .navbar, .btn, .hero-title{
   font-weight: 900;
 }
 
-.inq-grid{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px 16px;
-}
+
 
 .inq-field{ display:flex; flex-direction:column; gap:8px; }
 .inq-field.is-full{ grid-column: 1 / -1; }
@@ -3137,12 +3133,6 @@ h1, h2, h3, .title, .heading, .menu, .navbar, .btn, .hero-title{
 @media (max-width: 520px){
   .inq-grid-2{ grid-template-columns: 1fr; }
 }
-/* 🔥 FORCE GRID OVERRIDE */
-.inq-grid-2tight {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 12px !important;
-}
 
 .inq-grid-2tight > .inq-field {
   width: 100% !important;
@@ -3152,12 +3142,6 @@ h1, h2, h3, .title, .heading, .menu, .navbar, .btn, .hero-title{
    Inquiry Step 1 – Tight Grid FIX
    ================================ */
 
-/* 학년 + 학급수 2열 고정 */
-.inq-grid-2.is-tight {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 12px !important;
-}
 
 /* 내부 필드가 줄 안 깨지게 */
 .inq-grid-2.is-tight .inq-field {
@@ -3601,90 +3585,102 @@ header.fixed {
 
 }
 
-/* =========================
-   Page8: Mobile vertical form
-========================= */
+/* ===============================
+   문의폼 모바일 1열 강제 적용
+================================= */
+@media (max-width: 768px) {
+
+  /* 2열 → 1열 */
+  .inq-grid,
+  .inq-grid-2tight,
+  .inq-grid-3 {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  /* 필드 전체폭 */
+  .inq-field,
+  .inq-mini {
+    width: 100% !important;
+  }
+
+}
+
+/* =======================================================
+   Contact(Page8) – Mobile like "anothercompany" layout
+   ======================================================= */
+
+/* 공통: 입력이 카드 밖으로 튀는 것 방지(특히 iOS) */
+.section-8 #inqStepper .inq-control,
+.section-8 #inqStepper input,
+.section-8 #inqStepper select,
+.section-8 #inqStepper textarea{
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* PC/태블릿: 기존 2열/3열 유지 (이미 정의되어 있음) */
+/* 모바일에서만 1열로 변경 */
 @media (max-width: 991px){
 
-  /* 전체 폼을 “한 줄에 한 필드”로 */
+  /* ✅ 모바일에서 폼 그리드 전부 1열로 */
   .section-8 .inq-grid,
-  .section-8 .inq-grid-2,
   .section-8 .inq-grid-2tight,
-  .section-8 .inq-grid-3{
+  .section-8 .inq-grid-3,
+  .section-8 .inq-grid.inq-grid-2tight{
+    display: grid !important;
     grid-template-columns: 1fr !important;
-    gap: 14px !important;
+    gap: 12px !important;
   }
 
-  /* input/select 튀어나옴 방지 */
-  .section-8 .inq-control,
-  .section-8 input,
-  .section-8 select,
-  .section-8 textarea{
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
-  /* 블록(섹션 제목) 간격 정리 */
-  .section-8 .inq-block-title{
-    margin: 18px 0 10px !important;
-    font-size: 15px !important;
-  }
-
-  /* 카드 좌우 여백(모바일 꽉 차게) */
+  /* ✅ 카드/타이틀 간격: 2번처럼 시원하게 */
   .section-8 .inq-wrap{
-    padding: 12px 12px 40px !important;
+    max-width: 520px;
+    margin: 0 auto;
   }
+
+  .section-8 .inq-head{
+    padding: 8px 0 14px;
+  }
+
+  .section-8 .inq-title{
+    font-size: 22px !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.02em;
+  }
+
   .section-8 .inq-card{
     padding: 18px !important;
     border-radius: 16px !important;
   }
 
-  /* 시간(일시/시작/종료)도 세로형 */
-  #timeField .inq-mini{
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 6px !important;
-  }
-  #timeField .inq-mini-label{
-    min-width: 0 !important;
-    font-size: 13px !important;
-    font-weight: 800 !important;
-    color: #374151 !important;
+  /* ✅ iOS 자동 확대 방지 + 터치감(16px 이상) */
+  .section-8 #inqStepper .inq-control,
+  .section-8 #inqStepper input,
+  .section-8 #inqStepper select,
+  .section-8 #inqStepper textarea{
+    font-size: 16px !important;
+    min-height: 48px !important;
   }
 
-  /* 하단 버튼도 세로로(원하면) */
-  .section-8 .inq-actions{
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important; /* 두 개 유지 */
-    gap: 12px !important;
-  }
-}
-@media (min-width: 992px){
-  .region-grid{
-    grid-template-columns: 1fr 1fr;
-  }
-}
-@media (max-width: 991px){
-  .section-8 .inq-grid,
-  .section-8 .inq-grid-2tight,
-  .section-8 .inq-grid-3{
+  /* ✅ “수업 추가 / 다음” 버튼: 모바일에서 한 줄씩(2번 느낌) */
+  .section-8 .inq-actions-bar{
     grid-template-columns: 1fr !important;
-    gap: 14px !important;
+    gap: 10px !important;
   }
 
-  .section-8 .inq-control,
-  .section-8 input,
-  .section-8 select,
-  .section-8 textarea{
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
+  /* (선택) 버튼을 하단에 살짝 붙이는 느낌: 스크롤 길 때 편함 */
+  .section-8 .inq-actions{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
   }
 }
 
-/* PC에선 지역만 2열 유지하고 싶으면 */
-@media (min-width: 992px){
-  .region-grid{ grid-template-columns: 1fr 1fr; }
+/* 더 작은 폰(아주 작은 화면)에서는 버튼도 1열 */
+@media (max-width: 520px){
+  .section-8 .inq-actions{
+    grid-template-columns: 1fr !important;
+  }
 }
-
