@@ -3665,4 +3665,26 @@ header.fixed {
     grid-template-columns: 1fr 1fr;
   }
 }
+@media (max-width: 991px){
+  .section-8 .inq-grid,
+  .section-8 .inq-grid-2tight,
+  .section-8 .inq-grid-3{
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  .section-8 .inq-control,
+  .section-8 input,
+  .section-8 select,
+  .section-8 textarea{
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
+
+/* PC에선 지역만 2열 유지하고 싶으면 */
+@media (min-width: 992px){
+  .region-grid{ grid-template-columns: 1fr 1fr; }
+}
 
