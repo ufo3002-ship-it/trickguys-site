@@ -3836,18 +3836,17 @@ header.fixed {
   width: 22px;                    /* ✅ 동그라미 크기 고정 */
   height: 22px;
 }
-/* ===== 모바일에서는 중앙정렬 해제 ===== */
-@media (max-width: 768px) {
+/* ===== STEP 전환 구조 안정화 ===== */
+#inqStepper {
+  position: relative;
+}
 
-  .section-8 .vertical-centred {
-    display: block !important;
-    height: auto !important;
-  }
+.inq-panel {
+  display: none;
+  position: relative;
+}
 
-  .section-8 .boxed,
-  .section-8 .boxed-inner {
-    height: auto !important;
-  }
-
+.inq-panel.is-active {
+  display: block;
 }
 
