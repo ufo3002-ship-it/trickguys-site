@@ -3684,3 +3684,52 @@ header.fixed {
     grid-template-columns: 1fr !important;
   }
 }
+/* ✅ school carousel: Owl이 안 먹을 때도 가로 스크롤 유지 */
+.school-carousel:not(.owl-loaded){
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 6px;
+}
+
+.school-carousel:not(.owl-loaded) .school-item{
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+/* ===== 모바일 전용: Step2 라디오(음향/스크린) ===== */
+@media (max-width: 768px){
+
+  /* 질문(라벨) 폰트 키우기 */
+  .inq-panel[data-step="2"] .inq-field > label{
+    font-size: 17px !important;
+    font-weight: 900 !important;
+    line-height: 1.2 !important;
+  }
+
+  /* 가능/불가/미정 가로 한줄 */
+  .inq-panel[data-step="2"] .inq-choice{
+    display: flex !important;
+    gap: 14px !important;
+    flex-wrap: nowrap !important;      /* 줄바꿈 금지 */
+    align-items: center !important;
+    overflow-x: auto;                  /* 화면 좁으면 가로 스크롤 */
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
+
+  .inq-panel[data-step="2"] .inq-choice label{
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    white-space: nowrap !important;    /* 글자 줄바꿈 금지 */
+    font-size: 16px !important;
+    font-weight: 800 !important;
+  }
+
+  .inq-panel[data-step="2"] .inq-choice input[type="radio"]{
+    width: 18px !important;
+    height: 18px !important;
+  }
+}
