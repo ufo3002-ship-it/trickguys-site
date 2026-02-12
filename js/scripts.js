@@ -202,32 +202,49 @@ document.addEventListener('click', (e) => {
   input.focus();
 });
 }
+// ✅ Mobile: disable pagepiling, use normal scroll
+(function () {
+  const isMobile = window.matchMedia("(max-width: 991px), (pointer: coarse)").matches;
+  if (!isMobile) return;
 
-if ($('.pagepiling').length > 0){
+  // pagepiling이 이미 붙어있다면 제거
+  try { $.fn.pagepiling && $.fn.pagepiling.destroy && $.fn.pagepiling.destroy('all'); } catch(e){}
+
+  // pagepiling이 쓰던 overflow/height 영향 최소화
+  document.documentElement.style.overflow = "auto";
+  document.body.style.overflow = "auto";
+
+  const wrap = document.getElementById("pagepiling");
+  if (wrap) wrap.classList.add("is-mobile-scroll");
+})();
+
+const isMobile = window.matchMedia("(max-width: 991px), (pointer: coarse)").matches;
+
+if (!isMobile && $('.pagepiling').length > 0){
   $('.pagepiling').pagepiling({
     scrollingSpeed: 280,
-
-    // ✅ 8페이지에서 휠 잘못 굴려도 1페이지로 루프되지 않게
     loopTop: false,
     loopBottom: false,
-
     anchors: ['page1', 'page2', 'page3', 'page4', 'page8'],
-
-    // ✅ 8페이지(문의 폼)에서는 pagepiling이 스크롤을 낚아채지 않게
-    //    → 섹션 이동 대신 내부 스크롤/폼 스크롤이 됨
     normalScrollElements:
       '.section-8, .section-8 .scroll-wrap, .section-8 .scrollable-content, ' +
       '.section-8 form, .section-8 input, .section-8 textarea, .section-8 select, ' +
       '.section-8 .inq-card, .section-8 .inq-wrap',
-
     afterLoad: function(anchorLink, index){
       navbarFullpage();
-
-      // 2페이지에서만 캐러셀 init
       if(index === 2){
         initSchoolCarousel();
       }
     }
+  });
+} else {
+  // ✅ 모바일: 일반 스크롤 모드로
+  $('html, body').css({ overflow: 'auto', height: 'auto' });
+
+  // pp-scrollable 구조가 height:100% 등으로 막는 경우가 있어서 풀어줌
+  $('.pp-scrollable, .scroll-wrap, .scrollable-content').css({
+    height: 'auto',
+    overflow: 'visible'
   });
 }
 
@@ -612,10 +629,10 @@ btnAddClass?.addEventListener('click', () => {
   // -------------------
   // Step navigation
   // -------------------
-  btnNext?.addEventListener('click', () => setStep(3));
+  btnNext?.addEventListener('click', () => setStep(2));
   btnBackTo1?.addEventListener('click', () => setStep(1));
-  btnGoStep3?.addEventListener('click', () => setStep(3));
-  btnBackTo2?.addEventListener('click', () => setStep(3));
+  btnGoStep3?.addEventListener('click', () => setStep(2));
+  btnBackTo2?.addEventListener('click', () => setStep(2));
    // -------------------
 // Submit (Step 3)
 // -------------------
