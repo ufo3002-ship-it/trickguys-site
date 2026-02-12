@@ -470,15 +470,22 @@ body { cursor: none; }
 <div class="inq-actions inq-actions-bar">
   <div class="inq-block-title">학교 정보</div>
   <!-- 지역 선택 -->
-  <div class="inq-grid">
+ <div class="inq-grid region-grid">
+  <div class="inq-field">
+    <label class="inq-label">지역(도/시) <span class="req">*</span></label>
     <select class="inq-control" id="regionSido" required>
       <option value="">도/시</option>
     </select>
+  </div>
 
+  <div class="inq-field">
+    <label class="inq-label">지역(시/군/구) <span class="req">*</span></label>
     <select class="inq-control" id="regionSigungu" required disabled>
       <option value="">시/군/구</option>
     </select>
   </div>
+</div>
+
 
   <!-- 학교 이름 -->
   <div class="inq-field is-full">
