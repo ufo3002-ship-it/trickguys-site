@@ -644,7 +644,7 @@ form?.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   // 3단계에서만 제출
-  if (currentStep !== 3) return;
+  if (currentStep !== 2) return;
 
   // 연타 방지
   if (isSubmitting) return;
