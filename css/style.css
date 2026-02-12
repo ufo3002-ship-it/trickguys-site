@@ -3855,4 +3855,36 @@ header.fixed {
     margin: 0;             /* 기본 마진 제거 */
   }
 }
+/* =========================================================
+   FIX: iOS(Safari)에서 라디오 버튼/라벨이 안 보이는 현상
+   ========================================================= */
+@media (max-width: 991px){
+  .section-8 #inqStepper input[type="radio"]{
+    min-height: unset !important;
+    height: 20px !important;
+    width: 20px !important;
+    margin: 0 !important;
+    -webkit-appearance: radio !important;
+    appearance: radio !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+  }
+
+  .section-8 #inqStepper .inq-choice{
+    width: 100% !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+  }
+
+  .section-8 #inqStepper .inq-choice > label{
+    flex: 1 1 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 6px !important; /* 라디오-글자 간격 (더 붙이려면 4px 같은 식으로 줄이면 됨) */
+    white-space: nowrap !important;
+    color: #111 !important;
+    font-size: 16px !important;
+    font-wei
 
