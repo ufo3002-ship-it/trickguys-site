@@ -467,7 +467,7 @@ body { cursor: none; }
               <div id="inqStepper">
 
               <!-- ================= STEP 1 ================= -->
-<div class="inq-actions inq-actions-bar">
+<div class="inq-panel" data-step="1">
   <div class="inq-block-title">학교 정보</div>
   <!-- 지역 선택 -->
  <div class="inq-grid region-grid">
@@ -606,15 +606,10 @@ body { cursor: none; }
 
 
   <!-- 버튼 -->
-  <div class="inq-actions">
-    <button type="button" class="btn-soft" id="btnAddClass">
-      수업 추가
-    </button>
-    
-<button type="button" class="btn-primary" id="btnNext">
-      다음
-    </button>
-  </div>
+<div class="inq-actions inq-actions-bar">
+  <button type="button" class="btn-soft" id="btnAddClass">수업 추가</button>
+  <button type="button" class="btn-primary" id="btnNext">다음</button>
+</div>
 
   <!-- 추가된 수업 리스트 -->
   <div class="class-list" id="classListWrap" style="display:none;">
@@ -671,8 +666,6 @@ body { cursor: none; }
   <div class="inq-actions">
    <button type="submit" class="btn-primary" id="btnSubmitInquiry">제출</button>
   </div>
-
-</form>
 
 </form>
 </div> <!-- /.inq-panel (data-step="2") -->
