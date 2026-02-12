@@ -3805,5 +3805,14 @@ header.fixed {
   }
 
 }
+@media (max-width: 768px) {
+  .radio-item {
+    gap: 12px;
+  }
+
+  .radio-item input[type="radio"] {
+    margin-right: 8px;
+  }
+}
 
 
