@@ -3612,14 +3612,19 @@ header.fixed {
 
 /* 공통: 입력이 카드 밖으로 튀는 것 방지(특히 iOS) */
 .section-8 #inqStepper .inq-control,
-.section-8 #inqStepper input,
+.section-8 #inqStepper input:not([type="radio"]):not([type="checkbox"]),
 .section-8 #inqStepper select,
 .section-8 #inqStepper textarea{
-  width: 100% !important;
-  max-width: 100% !important;
-  box-sizing: border-box !important;
+  font-size: 16px !important;
+  min-height: 48px !important;
 }
 
+/* 라디오는 크기만 따로 */
+.section-8 #inqStepper input[type="radio"]{
+  min-height: auto !important;
+  width: 22px;
+  height: 22px;
+}
 /* PC/태블릿: 기존 2열/3열 유지 (이미 정의되어 있음) */
 /* 모바일에서만 1열로 변경 */
 @media (max-width: 991px){
@@ -3831,26 +3836,23 @@ header.fixed {
 }
 /* Mobile: radio와 글자 딱 붙이기 (최종 override) */
 @media (max-width: 768px){
-  #inqStepper .inq-choice{
-    width: 100%;
-    justify-content: space-between; /* 줄 전체는 넓게 */
-    gap: 0 !important;              /* 그룹 gap 제거 */
+  .inq-panel[data-step="2"] .inq-choice{
+    display: flex;
+    justify-content: space-between; /* 가로 1줄 최대한 넓게 */
+    gap: 10px;
+    flex-wrap: nowrap;
   }
 
-  #inqStepper .inq-choice label{
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: flex-start !important; /* label 내부는 왼쪽 붙이기 */
-    gap: 2px !important;                   /* ✅ 여기 숫자 줄이면 더 붙음 */
-    margin: 0 !important;
-    padding: 0 !important;
+  .inq-panel[data-step="2"] .inq-choice > label{
+    display: flex;
+    align-items: center;
+    gap: 8px;              /* ✅ 라디오와 글자 간격(여기 줄이면 더 붙음) */
+    margin: 0;
+    white-space: nowrap;
   }
 
-  #inqStepper .inq-choice input[type="radio"]{
-    margin: 0 2px 0 0 !important; /* ✅ 기본 마진 강제 제거 */
+  .inq-panel[data-step="2"] .inq-choice input[type="radio"]{
+    margin: 0;             /* 기본 마진 제거 */
   }
 }
-
-
-
 
