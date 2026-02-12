@@ -3836,4 +3836,25 @@ header.fixed {
   width: 22px;                    /* ✅ 동그라미 크기 고정 */
   height: 22px;
 }
+/* ===== 문의폼 버튼 위치 강제 보정 ===== */
+.inq-panel {
+  display: block !important;
+}
+
+.inq-actions-bar {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+@media (max-width: 768px) {
+  .inq-actions-bar {
+    flex-direction: column;
+  }
+
+  .inq-actions-bar .btn-soft,
+  .inq-actions-bar .btn-primary {
+    width: 100%;
+  }
+}
 
