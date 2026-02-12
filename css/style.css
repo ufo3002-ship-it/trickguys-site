@@ -3567,6 +3567,38 @@ header.fixed {
 }
 @media (max-width: 991px){
   .kakao-float{
-    bottom: calc(92px + env(safe-area-inset-bottom)) !important;
+    bottom: calc(110px + env(safe-area-inset-bottom)) !important;
   }
 }
+/* =========================
+   page8 mobile layout FIX
+========================= */
+@media (max-width: 991px){
+
+  /* 모든 grid 강제 1열 */
+  .inq-grid,
+  .inq-grid-2tight,
+  .inq-grid-3{
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* select / input 튀어나오는 것 방지 */
+  .inq-control,
+  input,
+  select,
+  textarea{
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 카드 여백 정리 */
+  .inq-card{
+    padding: 18px !important;
+  }
+
+}
+
+
