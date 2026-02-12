@@ -674,53 +674,38 @@ body { cursor: none; }
 
 </form>
 
+</form>
+</div> <!-- /.inq-panel (data-step="2") -->
+</div> <!-- /#inqStepper -->
+</section> <!-- /.inq-card -->
+</main> <!-- /.inq-wrap -->
 
-<!-- jQuery -->
+</div> <!-- /.container -->
+</div> <!-- /.vertical-centred -->
+</div> <!-- /.scrollable-content -->
+</div> <!-- /.scroll-wrap -->
+</div> <!-- /.section.section-8 -->
 
+</div> <!-- /#pagepiling -->
+</div> <!-- /.animsition -->
+
+<!-- =========================
+     Scripts (문서 맨 아래)
+========================= -->
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.pagepiling.min.js"></script>
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/wow.min.js"></script>
 <script src="js/animsition.js"></script>
 <script src="js/jquery.magnific-popup.min.js"></script>
-<script>
-  (function(){
-    const modal = document.querySelector('.school-modal');
-    if(!modal) return;
 
-    const openBtn = document.querySelector('[data-school-modal-open]');
-    const closeBtns = modal.querySelectorAll('[data-school-modal-close]');
-    const search = modal.querySelector('.school-modal__search');
-    const chips = Array.from(modal.querySelectorAll('.chip'));
+<!-- 네 메인 스크립트 -->
+<script src="js/scripts.js?v=999"></script>
 
-    function open(){
-      modal.classList.add('is-open');
-      modal.setAttribute('aria-hidden','false');
-      if(search) { search.value=''; filter(''); search.focus(); }
-    }
-    function close(){
-      modal.classList.remove('is-open');
-      modal.setAttribute('aria-hidden','true');
-    }
-    function filter(q){
-      const qq = (q||'').trim().toLowerCase();
-      chips.forEach(ch => {
-        const hit = ch.textContent.toLowerCase().includes(qq);
-        ch.style.display = hit ? '' : 'none';
-      });
-    }
-
-    openBtn && openBtn.addEventListener('click', open);
-    closeBtns.forEach(btn => btn.addEventListener('click', close));
-    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') close(); });
-    search && search.addEventListener('input', (e)=>filter(e.target.value));
-  })();
-</script>
-
-<!-- Scripts -->
-<script src="js/scripts.js?v=999"></script> 
+<!-- 학교 데이터 + 캐러셀 초기화 -->
 <script>
   const schools = [
+    const schools = [
     { date: '2025.12.11', name: '양주 회천중학교', img: 'images/schools/school-01.jpg' },
     { date: '2025.12.30', name: '이천사동중학교', img: 'images/schools/school-02.jpg' },
     { date: '2025.12.29', name: '판곡중학교',     img: 'images/schools/school-03.jpg' },
@@ -789,49 +774,30 @@ body { cursor: none; }
     { date: '2025.12.11', name: '양주 회천중학교', img: 'images/schools/school-61.jpg' },
     { date: '2025.12.30', name: '이천사동중학교', img: 'images/schools/school-62.jpg' },
 
-
-    // 여기만 계속 추가
   ];
 
   const wrap = document.getElementById('schoolCarousel');
-  wrap.innerHTML = schools.map(s => `
-    <a class="school-item" href="#" title="${s.name}">
-      <img src="${s.img}" alt="${s.name}">
-      <div class="school-meta">
-        <div class="school-date">${s.date}</div>
-        <div class="school-name">${s.name}</div>
-      </div>
-    </a>
-  `).join('');
+  if (wrap) {
+    wrap.innerHTML = schools.map(s => `
+      <a class="school-item" href="#" title="${s.name}">
+        <img src="${s.img}" alt="${s.name}">
+        <div class="school-meta">
+          <div class="school-date">${s.date}</div>
+          <div class="school-name">${s.name}</div>
+        </div>
+      </a>
+    `).join('');
+  }
 
-  $('.school-carousel').owlCarousel({
-    loop: true,
-    margin: 18,
-    nav: true,
-    dots: false,
-    autoplay: true,
-    autoplayTimeout: 2600,
-    autoplayHoverPause: true,
-    responsive: {
-      0: { items: 1 },
-      576: { items: 2 },
-      768: { items: 3 },
-      1200: { items: 4 }
-    }
-  });
-</script>
-<script>
   function initSchoolCarousel(){
     var $c = $('.school-carousel');
     if(!$c.length) return;
 
-    // 이미 owl이 붙어있으면 refresh만
     if($c.hasClass('owl-loaded')){
       $c.trigger('refresh.owl.carousel');
       return;
     }
 
-    // owl이 안 붙어있으면 새로 초기화
     $c.owlCarousel({
       loop: true,
       margin: 18,
@@ -849,18 +815,16 @@ body { cursor: none; }
     });
   }
 
-  // DOM 로드 후 한 번
   $(function(){
     initSchoolCarousel();
-
-    // 표시 타이밍 이슈 대비: 약간 텀 주고 한 번 더
     setTimeout(initSchoolCarousel, 300);
     setTimeout(initSchoolCarousel, 800);
   });
 
-  // 화면 회전/리사이즈 시 폭 재계산
-  window.addEventListener('resize', function(){
-    initSchoolCarousel();
-  });
+  window.addEventListener('resize', initSchoolCarousel);
 </script>
+
+</body>
+</html>
+
 
