@@ -3805,23 +3805,48 @@ header.fixed {
   }
 
 }
-/* 모바일에서 라디오 버튼 줄바꿈 + 간격 확보 */
 @media (max-width: 768px) {
 
   .inq-choice {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
+    width: 100%;
   }
 
   .inq-choice label {
+    flex: 1;               /* 3등분 */
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+  }
+
+}
+@media (max-width: 768px) {
+
+  .inq-choice label {
+    font-size: 16px;   /* 🔥 여기 숫자 키우면 됨 */
+    font-weight: 600;  /* 선택사항 (조금 더 선명하게) */
+  }
+
+}
+@media (max-width: 768px) {
+
+  .inq-choice input[type="radio"] {
+    width: 20px;
+    height: 20px;
+  }
+
+}
+@media (max-width: 768px) {
+
+  .inq-choice label {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;              /* 거의 붙이기 */
   }
 
   .inq-choice input[type="radio"] {
-    flex-shrink: 0;
+    margin: 0 2px 0 0;     /* 오른쪽 마진 최소화 */
   }
 
 }
