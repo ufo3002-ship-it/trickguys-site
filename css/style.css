@@ -3888,6 +3888,7 @@ header.fixed {
     font-size: 16px !important;
  font-weight: 800 !important; 
   }
+}
 /* ✅ 모바일에서는 네이티브 가로 슬라이드(스크롤+스냅)로 강제 */
 @media (max-width: 991px){
   .school-carousel.is-native-scroll{
