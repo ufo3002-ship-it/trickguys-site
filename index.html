@@ -281,7 +281,7 @@ body { cursor: none; }
 
     <div class="school-carousel owl-carousel" id="schoolCarousel"></div>
   </section>
-document.dispatchEvent(new Event('schoolsReady'));
+
 
   <!-- 블록 2: 선생님 후기 -->
   <section class="review-block">
@@ -793,29 +793,7 @@ document.dispatchEvent(new Event('schoolsReady'));
  
 
 
-  var isMobile = window.matchMedia('(max-width: 991px)').matches;
-
-  // -------------------------
-  // 📱 모바일
-  // -------------------------
-  if(isMobile){
-
-    // Owl이 이미 초기화 되어있으면 완전 제거
-    if($c.hasClass('owl-loaded')){
-      $c.trigger('destroy.owl.carousel');
-      $c.find('.owl-stage-outer').children().unwrap();
-      $c.find('.owl-stage').children().unwrap();
-      $c.removeClass('owl-loaded owl-hidden');
-      $c.find('.owl-nav, .owl-dots').remove();
-    }
-
-    // 🔥 핵심: owl 기본 display:none 완전 차단
-    $c.removeClass('owl-carousel')
-      .addClass('is-native-scroll')
-      .css('display','flex');
-
-    return;
-  }
+ 
 
   // -------------------------
   // 💻 PC / 태블릿
@@ -837,7 +815,7 @@ document.dispatchEvent(new Event('schoolsReady'));
       }
     });
   }
-}
+
 
 
 </script>
