@@ -21,7 +21,7 @@ setTimeout(() => { $('.loader').fadeOut(300); }, 4000);
       loadingParentElement: 'body',
       loadingClass: 'spinner',
       loadingInner: '<div class="double-bounce1"></div><div class="double-bounce2"></div>',
-      timeout: false,
+      timeout: true,
       timeoutCountdown: 5000,
       onLoadEvent: true,
       browser: [ 'animation-duration', '-webkit-animation-duration'],
@@ -79,7 +79,6 @@ setTimeout(() => { $('.loader').fadeOut(300); }, 4000);
     var $c = $('#schoolCarousel');
     if (!$c.length) return;
 
-    var isMobile = window.matchMedia('(max-width: 991px), (pointer: coarse)').matches;
 
     // cleanup if already owl
     if ($c.hasClass('owl-loaded')) {
