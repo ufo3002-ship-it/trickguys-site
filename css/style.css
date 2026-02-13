@@ -3988,13 +3988,13 @@ header.fixed {
 @media (max-width: 991px){
   /* owl이 안 붙은 경우 */
   #schoolCarousel > .school-item{
-    width: 70vw !important;     /* ← 여기 숫자 줄일수록 더 작아짐 (예: 70vw) */
+    width: 60vw !important;     /* ← 여기 숫자 줄일수록 더 작아짐 (예: 70vw) */
     max-width: 320px !important;/* 너무 커지는 거 방지 */
     margin: 0 auto;             /* 가운데 정렬(필요시) */
   }
 
   /* owl이 붙은 경우(owl-item이 폭을 잡아먹음) */
   #schoolCarousel .owl-item{
-    width: 54vw !important;     /* ← 이것도 같이 줄여야 동일하게 작아짐 */
+    width: 44vw !important;     /* ← 이것도 같이 줄여야 동일하게 작아짐 */
   }
 }
