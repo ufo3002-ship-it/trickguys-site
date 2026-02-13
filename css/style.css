@@ -3950,4 +3950,13 @@ header.fixed {
   #schoolCarousel .owl-nav{ display:none !important; }
 }
 
-
+@media (max-width: 991px){
+  #schoolCarousel.owl-carousel{
+    display: flex !important;
+  }
+}
+.kakao-float{
+  z-index: 2147483647 !important;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
