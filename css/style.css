@@ -4022,3 +4022,6 @@ header.fixed {
     margin: 0 auto !important;
   }
 }
+
+.inq-panel{ display:none; }
+.inq-panel.is-active{ display:block; }
