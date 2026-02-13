@@ -3960,3 +3960,14 @@ header.fixed {
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
 }
+
+
+/* ✅ Kakao floating button FINAL override */
+.kakao-float{
+  position: fixed !important;
+  right: 16px !important;
+  bottom: calc(16px + env(safe-area-inset-bottom)) !important; /* 기본은 이걸로 */
+  z-index: 2147483647 !important; /* 🔥 최상단 */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
