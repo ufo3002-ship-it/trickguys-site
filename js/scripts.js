@@ -111,6 +111,14 @@ setTimeout(() => { $('.loader').fadeOut(300); }, 4000);
       }
     });
   }
+// Ensure carousel mode matches viewport (Mobile: native scroll, Desktop: Owl)
+$(function(){
+  initSchoolCarousel();
+  setTimeout(initSchoolCarousel, 300);
+  setTimeout(initSchoolCarousel, 800);
+});
+
+window.addEventListener('resize', initSchoolCarousel);
 
   // pagepiling: PC only, Mobile = normal scroll
   function navbarFullpage(){
