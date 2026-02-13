@@ -21,7 +21,7 @@
       loadingParentElement: 'body',
       loadingClass: 'spinner',
       loadingInner: '<div class="double-bounce1"></div><div class="double-bounce2"></div>',
-      timeout: false,
+      timeout: true,
       timeoutCountdown: 5000,
       onLoadEvent: true,
       browser: [ 'animation-duration', '-webkit-animation-duration'],
