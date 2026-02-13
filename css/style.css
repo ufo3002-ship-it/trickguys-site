@@ -3961,38 +3961,13 @@ header.fixed {
   transform: translateZ(0);
 }
 
-/* ============================
-   FIX: School carousel visible on mobile (iOS)
-   ============================ */
-@media (max-width: 991px){
-  /* owl 기본 display:none 방지 */
-  #schoolCarousel,
-  #schoolCarousel.owl-carousel{
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    gap: 16px !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-    padding-bottom: 10px;
-  }
-
-  #schoolCarousel .school-item{
-    flex: 0 0 auto !important;
-    width: 86vw !important;
-    scroll-snap-align: start;
-  }
-
-  /* 혹시 owl이 감싸놓은 구조여도 보이게 */
-  #schoolCarousel .owl-stage-outer{ overflow: visible !important; }
-  #schoolCarousel .owl-stage{ display: flex !important; }
-  #schoolCarousel .owl-item{ width: 86vw !important; }
-
-  /* 모바일에선 nav/dots 안 쓰면 숨김 */
-  #schoolCarousel .owl-nav,
-  #schoolCarousel .owl-dots{
-    display: none !important;
-  }
+/* 강제 표시 - Owl 기본 display:none 차단 */
+#schoolCarousel{
+  display: block !important;
 }
+
+#schoolCarousel.owl-carousel{
+  display: block !important;
+}
+
 
