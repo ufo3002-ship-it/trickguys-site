@@ -3961,13 +3961,9 @@ header.fixed {
   transform: translateZ(0);
 }
 
-/* 강제 표시 - Owl 기본 display:none 차단 */
-#schoolCarousel{
-  display: block !important;
+/* 강제 표시 - PC에서만 */
+@media (min-width: 992px){
+  #schoolCarousel{ display: block !important; }
+  #schoolCarousel.owl-carousel{ display: block !important; }
 }
-
-#schoolCarousel.owl-carousel{
-  display: block !important;
-}
-
 
