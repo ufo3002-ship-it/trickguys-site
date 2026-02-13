@@ -4060,7 +4060,7 @@ body.is-loaded .loader{
 }
 @media (max-width: 480px){
   .hero-title{
-    font-size: 24px;
+    font-size: 23px;
     line-height: 1.2;
     letter-spacing: -0.02em;
   }
