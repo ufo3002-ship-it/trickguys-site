@@ -15,7 +15,7 @@
 <title>TrickGuys-</title> 
 
 <!-- Styles -->
-<link href="css/style.css?v=1013" rel="stylesheet" media="screen">
+<link href="css/style.css?v=1014" rel="stylesheet" media="screen">
 
 <!-- Fonts -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css">
@@ -693,7 +693,7 @@ body { cursor: none; }
 <script src="js/jquery.magnific-popup.min.js"></script>
 
 <!-- 네 메인 스크립트 -->
-<script src="js/scripts.js?v=1013"></script>
+<script src="js/scripts.js?v=1014"></script>
 
 <!-- 학교 데이터 + 캐러셀 초기화 -->
 <script>
@@ -789,23 +789,20 @@ body { cursor: none; }
     var isMobile = window.matchMedia('(max-width: 991px)').matches;
 
     // ✅ 모바일: Owl 쓰지 말고 "네이티브 가로 스냅"으로
-    if(isMobile){
-      // Owl이 이미 붙어있으면 깨끗하게 제거(중요)
-      if($c.hasClass('owl-loaded')){
-        $c.trigger('destroy.owl.carousel');
+if(isMobile){
+  if($c.hasClass('owl-loaded')){
+    $c.trigger('destroy.owl.carousel');
+    $c.find('.owl-stage-outer').children().unwrap();
+    $c.find('.owl-stage').children().unwrap();
+    $c.removeClass('owl-loaded owl-hidden');
+    $c.find('.owl-nav, .owl-dots').remove();
+  }
 
-        // Owl이 만든 wrapper 제거(구조 원복)
-        $c.find('.owl-stage-outer').children().unwrap();
-        $c.find('.owl-stage').children().unwrap();
+  // 🔥 핵심: iOS에서 owl 기본 display:none을 원천 차단
+  $c.removeClass('owl-carousel').addClass('is-native-scroll').css('display','flex');
 
-        $c.removeClass('owl-loaded owl-hidden');
-        $c.find('.owl-nav, .owl-dots').remove();
-      }
-
-      $c.addClass('is-native-scroll');
-      return;
-    }
-
+  return;
+}
     // ✅ 데스크탑/태블릿: Owl 사용
     $c.removeClass('is-native-scroll');
 
