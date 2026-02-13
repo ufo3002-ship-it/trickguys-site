@@ -8,7 +8,7 @@
       wow.init();
     }
   });
-
+setTimeout(() => { $('.loader').fadeOut(300); }, 4000);
   // Animsition
   if ($.fn.animsition) {
     $(".animsition").animsition({
