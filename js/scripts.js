@@ -1,14 +1,27 @@
-﻿(function($){
+﻿// js/scripts.js (patched)
+(function($){
   'use strict';
 
+  // ===== Safety: never get stuck on the black loader screen =====
+  function forceHideLoader(){
+    try { $('.loader').stop(true,true).fadeOut(200); } catch(e) {}
+    try { document.body && document.body.classList.add('is-loaded'); } catch(e) {}
+  }
+  window.forceHideLoader = forceHideLoader;
+  // If anything goes wrong, hide loader anyway
+  window.addEventListener('error', forceHideLoader);
+  window.addEventListener('unhandledrejection', forceHideLoader);
+  // Hard timeout fallback (mobile Safari can be flaky)
+  setTimeout(forceHideLoader, 4000);
+
   $(window).on('load', function(){
-    $('.loader').fadeOut(1000);
+    forceHideLoader();
     if (typeof WOW !== 'undefined') {
       var wow = new WOW({ offset: 150, mobile: false });
       wow.init();
     }
   });
-setTimeout(() => { $('.loader').fadeOut(300); }, 4000);
+
   // Animsition
   if ($.fn.animsition) {
     $(".animsition").animsition({
@@ -17,7 +30,7 @@ setTimeout(() => { $('.loader').fadeOut(300); }, 4000);
       inDuration: 1000,
       outDuration: 700,
       linkElement: 'a.project-box',
-      loading: true,
+      loading: !window.matchMedia('(max-width: 991px), (pointer: coarse)').matches,
       loadingParentElement: 'body',
       loadingClass: 'spinner',
       loadingInner: '<div class="double-bounce1"></div><div class="double-bounce2"></div>',
@@ -25,60 +38,19 @@ setTimeout(() => { $('.loader').fadeOut(300); }, 4000);
       timeoutCountdown: 5000,
       onLoadEvent: true,
       browser: [ 'animation-duration', '-webkit-animation-duration'],
-      overlay: false,
-      overlayClass: 'animsition-overlay-slide',
-      overlayParentElement: 'body',
+      overlay : false,
+      overlayClass : 'animsition-overlay-slide',
+      overlayParentElement : 'body',
       transition: function(url){ window.location.href = url; }
     });
   }
 
-  // youtube popup
-  if ($.fn.magnificPopup) {
-    $('.popup-youtube').magnificPopup({
-      disableOn: 700,
-      type: 'iframe',
-      mainClass: 'mfp-with-zoom',
-      removalDelay: 160,
-      preloader: false,
-      fixedContentPos: false
-    });
-  }
-
-  // Menu
-  $('.navbar-toggle').on('click', function(){
-    $('body').removeClass('menu-is-closed').addClass('menu-is-opened');
-  });
-
-  $('.close-menu, .click-capture, .menu-list li a').on('click', function(){
-    $('body').removeClass('menu-is-opened').addClass('menu-is-closed');
-    $('.menu-list ul').slideUp(300);
-  });
-
-  // Navbar fixed
-  function navbar(){
-    $(window).on('scroll', function(){
-      if ($(window).scrollTop() > 0) $('.navbar').addClass('navbar-fixed');
-      else $('.navbar').removeClass('navbar-fixed');
-    });
-  }
-  navbar();
-
-  // page8 input clear button
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.inq-clear');
-    if (!btn) return;
-    const wrap = btn.closest('.inq-input-with-btn');
-    const input = wrap?.querySelector('input');
-    if (!input) return;
-    input.value = '';
-    input.focus();
-  });
-
-  // School carousel init (PC only)
+  // ===== School Carousel (single source of truth) =====
   function initSchoolCarousel(){
     var $c = $('#schoolCarousel');
     if (!$c.length) return;
 
+    var isMobile = window.matchMedia('(max-width: 991px), (pointer: coarse)').matches;
 
     // cleanup if already owl
     if ($c.hasClass('owl-loaded')) {
@@ -90,13 +62,19 @@ setTimeout(() => { $('.loader').fadeOut(300); }, 4000);
     }
 
     if (isMobile) {
-      $c.removeClass('owl-carousel').addClass('is-native-scroll').css('display','flex');
+      // Mobile: native horizontal scroll
+      $c.removeClass('owl-carousel')
+        .addClass('is-native-scroll')
+        .css('display','flex');
       return;
     }
 
     if (!$.fn.owlCarousel) return;
 
-    $c.addClass('owl-carousel').removeClass('is-native-scroll').css('display','block');
+    // Desktop: owl carousel
+    $c.addClass('owl-carousel')
+      .removeClass('is-native-scroll')
+      .css('display','block');
 
     $c.owlCarousel({
       loop:false,
@@ -111,44 +89,49 @@ setTimeout(() => { $('.loader').fadeOut(300); }, 4000);
       }
     });
   }
-// Ensure carousel mode matches viewport (Mobile: native scroll, Desktop: Owl)
-$(function(){
-  initSchoolCarousel();
-  setTimeout(initSchoolCarousel, 300);
-  setTimeout(initSchoolCarousel, 800);
-});
 
-window.addEventListener('resize', initSchoolCarousel);
+  // expose for inline scripts (school data render)
+  window.initSchoolCarousel = initSchoolCarousel;
 
-  // pagepiling: PC only, Mobile = normal scroll
-  function navbarFullpage(){
-    if ($('.pp-section.active').scrollTop() > 0) $('.navbar-fullpage').addClass('navbar-fixed');
-    else $('.navbar-fullpage').removeClass('navbar-fixed');
-  }
+  $(function(){
+    // DOM ready safety
+    forceHideLoader();
 
-  var isMobile = window.matchMedia("(max-width: 991px), (pointer: coarse)").matches;
+    // First try (might be empty before data render)
+    initSchoolCarousel();
+    setTimeout(initSchoolCarousel, 300);
+    setTimeout(initSchoolCarousel, 800);
+  });
 
+  window.addEventListener('resize', function(){
+    initSchoolCarousel();
+  });
+
+  // ===== pagepiling: PC only, Mobile = normal scroll =====
+  var isMobile = window.matchMedia('(max-width: 991px), (pointer: coarse)').matches;
+
+  // Only init if plugin exists and not mobile
   if (!isMobile && $.fn.pagepiling && $('.pagepiling').length){
     $('.pagepiling').pagepiling({
       scrollingSpeed: 280,
-      anchors: ['page1','page2','page3','page4','page8'],
+      easing: 'swing',
+      loopBottom: false,
+      loopTop: false,
+      css3: true,
+      navigation: false,
+      normalScrollElements: '.scrollable-content, .scroll-wrap, .inq-panel',
       afterLoad: function(anchorLink, index){
-        navbarFullpage();
-        if (index === 2) setTimeout(initSchoolCarousel, 50);
+        // 섹션 진입 시 캐러셀 다시 맞춤
+        if (index === 2) initSchoolCarousel();
       }
     });
-
-    $(document).on('scroll', '.pp-scrollable', function(){
-      navbarFullpage();
-    });
   } else {
-    document.documentElement.style.overflow = "auto";
-    document.body.style.overflow = "auto";
-    const wrap = document.getElementById("pagepiling");
-    if (wrap) wrap.classList.add("is-mobile-scroll");
+    // Mobile fallback: ensure page is scrollable
+    try { document.body.classList.add('is-mobile'); } catch(e) {}
   }
 
 })(jQuery);
+
 
 // ===== Korea region data (minimal, editable) =====
 // 필요하면 나중에 "세종/제주" 등 더 추가하면 됨.
