@@ -101,30 +101,26 @@
 	  Owl Carousel
 	-------------------------------------------------------------------------------*/
 
+if ($('.owl-carousel').length > 0){
 
-	if ($('.owl-carousel').length > 0){
+  var isMobile = window.matchMedia('(max-width: 991px)').matches;
 
-	   $(".school-carousel").owlCarousel({
-			responsive:{
-		       0:{
-		            items:1
-		        },
-		        720:{
-		            items:1,
-		            
-		        },
-		        1280:{
-		            items:1
-		        }
-		    },
-		    responsiveRefreshRate:0,
-			nav:false,
-			navText:[],
+  // ✅ 모바일에서는 학교목록 Owl을 아예 초기화하지 않음 (네이티브 스크롤로 갈 거니까)
+  if(!isMobile){
+    $(".school-carousel").owlCarousel({
+      responsive:{
+        0:{ items:1 },
+        720:{ items:1 },
+        1280:{ items:1 }
+      },
+      responsiveRefreshRate:0,
+      nav:false,
+      navText:[],
+      dots:true
+    });
+  }
 
-		 	dots:true
-		});
-
-	}
+}
 
 
 
@@ -158,11 +154,6 @@
     }
 
     navbar();
-
-function initSchoolCarousel(){
-  var $c = $('.school-carousel');
-  if (!$c.length || !$.fn.owlCarousel) return;
-
   // 이미 초기화된 경우 깨끗하게 정리
   if ($c.hasClass('owl-loaded')) {
     $c.trigger('destroy.owl.carousel');
