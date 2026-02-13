@@ -15,7 +15,7 @@
 <title>TrickGuys-</title> 
 
 <!-- Styles -->
-<link href="css/style.css?v=1015" rel="stylesheet" media="screen">
+<link href="css/style.css?v=1016" rel="stylesheet" media="screen">
 
 <!-- Fonts -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css">
@@ -694,7 +694,7 @@ body { cursor: none; }
 <script src="js/jquery.magnific-popup.min.js"></script>
 
 <!-- 네 메인 스크립트 -->
-<script src="js/scripts.js?v=1015"></script>
+<script src="js/scripts.js?v=1016"></script>
 
 <!-- 학교 데이터 + 캐러셀 초기화 -->
 <script>
@@ -783,9 +783,7 @@ body { cursor: none; }
   }
 
  
-  function initSchoolCarousel(){
-  var $c = $('#schoolCarousel');
-  if(!$c.length) return;
+
 
   var isMobile = window.matchMedia('(max-width: 991px)').matches;
 
@@ -834,13 +832,6 @@ body { cursor: none; }
 }
 
 
-  $(function(){
-    initSchoolCarousel();
-    setTimeout(initSchoolCarousel, 300);
-    setTimeout(initSchoolCarousel, 800);
-  });
-
-  window.addEventListener('resize', initSchoolCarousel);
 </script>
 
 
