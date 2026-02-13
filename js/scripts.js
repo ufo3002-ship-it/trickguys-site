@@ -100,6 +100,43 @@
 	/*-------------------------------------------------------------------------------
 	  Owl Carousel
 	-------------------------------------------------------------------------------*/
+function initSchoolCarousel(){
+  var $c = $('#schoolCarousel'); // id로 정확히
+  if (!$c.length) return;
+
+  var isMobile = window.matchMedia('(max-width: 991px), (pointer: coarse)').matches;
+
+  // 이미 owl이 붙어있다면 먼저 정리
+  if ($c.hasClass('owl-loaded')) {
+    $c.trigger('destroy.owl.carousel');
+    $c.removeClass('owl-loaded owl-drag owl-hidden');
+    $c.find('.owl-stage-outer').children().unwrap();
+    $c.find('.owl-stage').children().unwrap();
+    $c.find('.owl-nav, .owl-dots').remove();
+  }
+
+  if (isMobile) {
+    // ✅ 모바일: owl 아예 사용 안 함 + 네이티브 가로 스크롤
+    $c.removeClass('owl-carousel')
+      .addClass('is-native-scroll')
+      .css('display','flex');
+    return;
+  }
+
+  // ✅ PC: owl 사용
+  $c.addClass('owl-carousel')
+    .removeClass('is-native-scroll')
+    .css('display','block');
+
+  if (!$.fn.owlCarousel) return;
+
+  $c.owlCarousel({
+    items: 1,
+    margin: 18,
+    nav: false,
+    dots: true
+  });
+}
 
 if ($('.owl-carousel').length > 0){
 
@@ -154,13 +191,6 @@ if ($('.owl-carousel').length > 0){
     }
 
     navbar();
-  // 이미 초기화된 경우 깨끗하게 정리
-  if ($c.hasClass('owl-loaded')) {
-    $c.trigger('destroy.owl.carousel');
-    $c.removeClass('owl-loaded owl-drag');
-    $c.find('.owl-stage-outer').children().unwrap();
-  }
-
 $c.owlCarousel({
   loop: true,
   margin: 18,
