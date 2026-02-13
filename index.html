@@ -1,3 +1,4 @@
+<!-- index.html (v1016) -->
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -12,24 +13,30 @@
 <link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png">
 <link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png">
 
-<title>TrickGuys-</title> 
+<title>Trickguys</title>
 
 <!-- Styles -->
-<link href="css/style.css?v=1016" rel="stylesheet" media="screen">
+<link href="css/style.css" rel="stylesheet" media="screen">
+<link href="css/animsition.min.css" rel="stylesheet" media="screen">
+<link href="css/owl.carousel.min.css" rel="stylesheet" media="screen">
+<link href="css/owl.theme.default.min.css" rel="stylesheet" media="screen">
+<link href="css/magnific-popup.css" rel="stylesheet" media="screen">
+<link href="css/jquery.pagepiling.css" rel="stylesheet" media="screen">
 
-<!-- Fonts -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSans.css">
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-
-<style>
-
-</style>
 </head>
 
-<body>
+<body class="animsition">
+
+
+<!-- Loader -->
+<div class="loader">
+  <div class="spinner">
+    <div class="double-bounce1"></div>
+    <div class="double-bounce2"></div>
+  </div>
+</div>
+
+
 <style>
   /* 기본 마우스 커서를 숨기고 싶으면 주석 해제 */
 body { cursor: none; } 
@@ -274,6 +281,7 @@ body { cursor: none; }
 
     <div class="school-carousel owl-carousel" id="schoolCarousel"></div>
   </section>
+document.dispatchEvent(new Event('schoolsReady'));
 
   <!-- 블록 2: 선생님 후기 -->
   <section class="review-block">
