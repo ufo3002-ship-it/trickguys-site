@@ -139,34 +139,23 @@ function initSchoolCarousel(){
 }
 
 if ($('.owl-carousel').length > 0){
-
-  var isMobile = window.matchMedia('(max-width: 991px)').matches;
-
-  // ✅ 모바일에서는 학교목록 Owl을 아예 초기화하지 않음 (네이티브 스크롤로 갈 거니까)
-  if(!isMobile){
-    $(".school-carousel").owlCarousel({
-      responsive:{
-        0:{ items:1 },
-        720:{ items:1 },
-        1280:{ items:1 }
-      },
-      responsiveRefreshRate:0,
-      nav:false,
-      navText:[],
-      dots:true
-    });
-  }
-
-}
-
-
+  $(".school-carousel").owlCarousel({
+    loop: false,
+    margin: 16,
+    nav: false,
+    dots: false,
+    autoWidth: true,          // ✅ 모바일에서 카드폭 유지에 유리
+    responsive:{
+      0:{ items: 1 },
+      768:{ items: 2 },
+      1200:{ items: 3 }
+    }
+  });
 
 
 	/*-------------------------------------------------------------------------------
 	  Full screen sections 
 	-------------------------------------------------------------------------------*/
-
-
 	function navbarFullpage(){
 	 if ( $('.pp-section.active').scrollTop() > 0 ){
     	$('.navbar-fullpage').addClass('navbar-fixed');
@@ -191,28 +180,7 @@ if ($('.owl-carousel').length > 0){
     }
 
     navbar();
-$c.owlCarousel({
-  loop: true,
-  margin: 18,
-  nav: false,
-  dots: false,
 
-   autoplay: true,
-  autoplayTimeout: 2000,      // ✅ 안정 대기시간 (0/1 금지)
-  smartSpeed: 900,            // ✅ 이동 부드럽게
-  autoplaySpeed: 900,         // ✅ smartSpeed랑 같게
-  slideTransition: 'ease',    // ✅ linear는 여기선 빼는 게 안정적
-  autoplayHoverPause: false,
-
-
-  responsive: {
-    0:   { items: 1, autoplay: false },
-    768: { items: 2 },
-    1200:{ items: 3 }
-  }
-});
-$c.trigger('stop.owl.autoplay');
-$c.trigger('play.owl.autoplay', [2400]);
 document.addEventListener('click', (e) => {
   const btn = e.target.closest('.inq-clear');
   if (!btn) return;
