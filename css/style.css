@@ -4025,3 +4025,19 @@ header.fixed {
 
 .inq-panel{ display:none; }
 .inq-panel.is-active{ display:block; }
+
+/* css/style.css (patched additions at bottom) */
+
+/* ===== Safety: never leave the loader covering the page ===== */
+body.is-loaded .loader{
+  display:none !important;
+  opacity:0 !important;
+  visibility:hidden !important;
+}
+
+/* ===== Mobile fallback when pagepiling is disabled ===== */
+@media (max-width: 991px){
+  #pagepiling{ height:auto; }
+  .pp-section{ height:auto !important; }
+}
+
