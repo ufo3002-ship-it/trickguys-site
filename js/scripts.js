@@ -425,18 +425,25 @@ venueTypeEl?.addEventListener('change', () => {
   if (!isEtc && venueEtcEl) venueEtcEl.value = '';
 });
 
-  let currentStep = 1;
-  let classes = [];
+ let currentStep = 1;
+let classes = [];
 
-  function setStep(n) {
-    currentStep = n;
-    panels.forEach(p =>
-      p.style.display = (p.dataset.step === String(n)) ? '' : 'none'
-    );
-    steps.forEach((li, i) =>
-      li.classList.toggle('is-active', i === n - 1)
-    );
-  }
+function setStep(n) {
+  currentStep = n;
+
+  // 패널 표시/숨김을 class로 제어
+  panels.forEach(p => {
+    p.classList.remove('is-active');
+    if (p.dataset.step === String(n)) {
+      p.classList.add('is-active');
+    }
+  });
+
+  // 상단 스텝 표시(동그라미/텍스트 active)
+  steps.forEach((li, i) => {
+    li.classList.toggle('is-active', i === n - 1);
+  });
+}
 
   setStep(1);
 
