@@ -100,62 +100,40 @@
 	/*-------------------------------------------------------------------------------
 	  Owl Carousel
 	-------------------------------------------------------------------------------*/
-function initSchoolCarousel(){
-  var $c = $('#schoolCarousel'); // id로 정확히
-  if (!$c.length) return;
 
-  var isMobile = window.matchMedia('(max-width: 991px), (pointer: coarse)').matches;
 
-  // 이미 owl이 붙어있다면 먼저 정리
-  if ($c.hasClass('owl-loaded')) {
-    $c.trigger('destroy.owl.carousel');
-    $c.removeClass('owl-loaded owl-drag owl-hidden');
-    $c.find('.owl-stage-outer').children().unwrap();
-    $c.find('.owl-stage').children().unwrap();
-    $c.find('.owl-nav, .owl-dots').remove();
-  }
+	if ($('.owl-carousel').length > 0){
 
-  if (isMobile) {
-    // ✅ 모바일: owl 아예 사용 안 함 + 네이티브 가로 스크롤
-    $c.removeClass('owl-carousel')
-      .addClass('is-native-scroll')
-      .css('display','flex');
-    return;
-  }
+	   $(".school-carousel").owlCarousel({
+			responsive:{
+		       0:{
+		            items:1
+		        },
+		        720:{
+		            items:1,
+		            
+		        },
+		        1280:{
+		            items:1
+		        }
+		    },
+		    responsiveRefreshRate:0,
+			nav:false,
+			navText:[],
 
-  // ✅ PC: owl 사용
-  $c.addClass('owl-carousel')
-    .removeClass('is-native-scroll')
-    .css('display','block');
+		 	dots:true
+		});
 
-  if (!$.fn.owlCarousel) return;
+	}
 
-  $c.owlCarousel({
-    items: 1,
-    margin: 18,
-    nav: false,
-    dots: true
-  });
-}
 
-if ($('.owl-carousel').length > 0){
-  $(".school-carousel").owlCarousel({
-    loop: false,
-    margin: 16,
-    nav: false,
-    dots: false,
-    autoWidth: true,          // ✅ 모바일에서 카드폭 유지에 유리
-    responsive:{
-      0:{ items: 1 },
-      768:{ items: 2 },
-      1200:{ items: 3 }
-    }
-  });
 
 
 	/*-------------------------------------------------------------------------------
 	  Full screen sections 
 	-------------------------------------------------------------------------------*/
+
+
 	function navbarFullpage(){
 	 if ( $('.pp-section.active').scrollTop() > 0 ){
     	$('.navbar-fullpage').addClass('navbar-fixed');
@@ -181,6 +159,39 @@ if ($('.owl-carousel').length > 0){
 
     navbar();
 
+function initSchoolCarousel(){
+  var $c = $('.school-carousel');
+  if (!$c.length || !$.fn.owlCarousel) return;
+
+  // 이미 초기화된 경우 깨끗하게 정리
+  if ($c.hasClass('owl-loaded')) {
+    $c.trigger('destroy.owl.carousel');
+    $c.removeClass('owl-loaded owl-drag');
+    $c.find('.owl-stage-outer').children().unwrap();
+  }
+
+$c.owlCarousel({
+  loop: true,
+  margin: 18,
+  nav: false,
+  dots: false,
+
+   autoplay: true,
+  autoplayTimeout: 2000,      // ✅ 안정 대기시간 (0/1 금지)
+  smartSpeed: 900,            // ✅ 이동 부드럽게
+  autoplaySpeed: 900,         // ✅ smartSpeed랑 같게
+  slideTransition: 'ease',    // ✅ linear는 여기선 빼는 게 안정적
+  autoplayHoverPause: false,
+
+
+  responsive: {
+    0:   { items: 1, autoplay: false },
+    768: { items: 2 },
+    1200:{ items: 3 }
+  }
+});
+$c.trigger('stop.owl.autoplay');
+$c.trigger('play.owl.autoplay', [2400]);
 document.addEventListener('click', (e) => {
   const btn = e.target.closest('.inq-clear');
   if (!btn) return;
@@ -375,23 +386,23 @@ function fillSelectOptions(selectEl, options, placeholderText) {
   });
 }
 
-(function initKoreaRegionSelects(){
-  const sido = document.getElementById("regionSido");
-  const sigungu = document.getElementById("regionSigungu");
-  if (!sido || !sigungu) return;
+function initKoreaRegionSelects(){
+  const sidoSel = document.getElementById("regionSido");
+  const sigunguSel = document.getElementById("regionSigungu");
+  if (!sidoSel || !sigunguSel) return;
 
-  const sidos = Object.keys(KOREA_REGIONS);
-  fillSelectOptions(sido, sidos, "도/시");
-  fillSelectOptions(sigungu, [], "시/군/구");
-  sigungu.disabled = true;
+  fillSelectOptions(sidoSel, Object.keys(KOREA_REGIONS), "도/시");
+  sigunguSel.disabled = true;
 
-  sido.addEventListener("change", () => {
-    const selected = sido.value;
-    const list = KOREA_REGIONS[selected] || [];
-    fillSelectOptions(sigungu, list, "시/군/구");
-    sigungu.disabled = list.length === 0;
+  sidoSel.addEventListener("change", () => {
+    const sido = sidoSel.value;
+    const list = KOREA_REGIONS[sido] || [];
+    fillSelectOptions(sigunguSel, list, "시/군/구");
+    sigunguSel.disabled = !sido;
   });
-})();
+}
+
+document.addEventListener("DOMContentLoaded", initKoreaRegionSelects);
 
 // ===============================
 // Inquiry Stepper (page8) - CLEAN & WORKING
@@ -425,25 +436,18 @@ venueTypeEl?.addEventListener('change', () => {
   if (!isEtc && venueEtcEl) venueEtcEl.value = '';
 });
 
- let currentStep = 1;
-let classes = [];
+  let currentStep = 1;
+  let classes = [];
 
-function setStep(n) {
-  currentStep = n;
-
-  // 패널 표시/숨김을 class로 제어
-  panels.forEach(p => {
-    p.classList.remove('is-active');
-    if (p.dataset.step === String(n)) {
-      p.classList.add('is-active');
-    }
-  });
-
-  // 상단 스텝 표시(동그라미/텍스트 active)
-  steps.forEach((li, i) => {
-    li.classList.toggle('is-active', i === n - 1);
-  });
-}
+  function setStep(n) {
+    currentStep = n;
+    panels.forEach(p =>
+      p.style.display = (p.dataset.step === String(n)) ? '' : 'none'
+    );
+    steps.forEach((li, i) =>
+      li.classList.toggle('is-active', i === n - 1)
+    );
+  }
 
   setStep(1);
 
