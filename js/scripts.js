@@ -93,15 +93,15 @@
   // expose for inline scripts (school data render)
   window.initSchoolCarousel = initSchoolCarousel;
 
-  $(function(){
-    // DOM ready safety
-    forceHideLoader();
+ // DOM 완전히 구성된 뒤 실행
+window.addEventListener("load", function(){
+  setTimeout(function(){
+    if (window.initSchoolCarousel) {
+      window.initSchoolCarousel();
+    }
+  }, 100);
+});
 
-    // First try (might be empty before data render)
-    initSchoolCarousel();
-    setTimeout(initSchoolCarousel, 300);
-    setTimeout(initSchoolCarousel, 800);
-  });
 
   window.addEventListener('resize', function(){
     initSchoolCarousel();
