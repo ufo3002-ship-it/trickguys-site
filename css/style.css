@@ -2187,6 +2187,16 @@ a.brand:focus{
   padding: 14px 20px;
   border-radius: 14px;
 }
+@media (max-width: 480px){
+  .hero-cta{
+    flex-direction: column;
+  }
+
+  .hero-cta a{
+    width: 100%;
+    text-align: center;
+  }
+}
 
 /* =========================
    CUSTOM OVERRIDES (clean)
@@ -4041,3 +4051,17 @@ body.is-loaded .loader{
   .pp-section{ height:auto !important; }
 }
 
+/* 모바일에서만 page2 메인 타이틀 크기 줄이기 */
+@media (max-width: 768px){
+  .review-title{
+    font-size: 25px;
+    line-height: 1.25;
+  }
+}
+@media (max-width: 480px){
+  .hero-title{
+    font-size: 24px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+}
