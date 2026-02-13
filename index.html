@@ -783,50 +783,55 @@ body { cursor: none; }
 
  
   function initSchoolCarousel(){
-    var $c = $('.school-carousel');
-    if(!$c.length) return;
+  var $c = $('#schoolCarousel');
+  if(!$c.length) return;
 
-    var isMobile = window.matchMedia('(max-width: 991px)').matches;
+  var isMobile = window.matchMedia('(max-width: 991px)').matches;
 
-    // ✅ 모바일: Owl 쓰지 말고 "네이티브 가로 스냅"으로
-if(isMobile){
-  if($c.hasClass('owl-loaded')){
-    $c.trigger('destroy.owl.carousel');
-    $c.find('.owl-stage-outer').children().unwrap();
-    $c.find('.owl-stage').children().unwrap();
-    $c.removeClass('owl-loaded owl-hidden');
-    $c.find('.owl-nav, .owl-dots').remove();
-  }
+  // -------------------------
+  // 📱 모바일
+  // -------------------------
+  if(isMobile){
 
-  // 🔥 핵심: iOS에서 owl 기본 display:none을 원천 차단
-  $c.removeClass('owl-carousel').addClass('is-native-scroll').css('display','flex');
-
-  return;
-}
-    // ✅ 데스크탑/태블릿: Owl 사용
-    $c.removeClass('is-native-scroll');
-
+    // Owl이 이미 초기화 되어있으면 완전 제거
     if($c.hasClass('owl-loaded')){
-      $c.trigger('refresh.owl.carousel');
-      return;
+      $c.trigger('destroy.owl.carousel');
+      $c.find('.owl-stage-outer').children().unwrap();
+      $c.find('.owl-stage').children().unwrap();
+      $c.removeClass('owl-loaded owl-hidden');
+      $c.find('.owl-nav, .owl-dots').remove();
     }
 
+    // 🔥 핵심: owl 기본 display:none 완전 차단
+    $c.removeClass('owl-carousel')
+      .addClass('is-native-scroll')
+      .css('display','flex');
+
+    return;
+  }
+
+  // -------------------------
+  // 💻 PC / 태블릿
+  // -------------------------
+  $c.removeClass('is-native-scroll')
+    .addClass('owl-carousel')
+    .css('display','');
+
+  if(!$c.hasClass('owl-loaded')){
     $c.owlCarousel({
       loop: true,
-      margin: 18,
-      nav: true,
-      dots: false,
-      autoplay: true,
-      autoplayTimeout: 2600,
-      autoplayHoverPause: true,
-      responsive: {
-        0: { items: 1 },
-        576: { items: 2 },
-        768: { items: 3 },
-        1200: { items: 4 }
+      margin: 20,
+      nav: false,
+      dots: true,
+      responsive:{
+        0:{ items:1 },
+        768:{ items:2 },
+        1200:{ items:3 }
       }
     });
   }
+}
+
 
   $(function(){
     initSchoolCarousel();
