@@ -1,327 +1,147 @@
-﻿( function($) {
+﻿(function($){
   'use strict';
 
-
-	$(window).on('load', function(){
-
-
-
-		/*-------------------------------------------------------------------------------
-		  Wow.js
-		-------------------------------------------------------------------------------*/
-
-
-
-		$('.loader').fadeOut(1000);
-		var wow = new WOW({
-		    offset: 150,          
-		    mobile: false
-		  }
-		);
-		
-		wow.init();
-	});
-
-
-
-	/*-------------------------------------------------------------------------------
-	   Animsition Loader
-	-------------------------------------------------------------------------------*/
-
-
-
-	$(".animsition").animsition({
-	   inClass: 'fade-in',
-       outClass: 'fade-out',
-	   inDuration: 1000,
-	   outDuration: 700,
-	   linkElement: 'a.project-box',
-	   // e.g. linkElement: 'a:not([target="_blank"]):not([href^="#"])'
-	   loading:true,
-	   loadingParentElement: 'body', //animsition wrapper element
-	   loadingClass: 'spinner',
-	   loadingInner: '<div class="double-bounce1"></div><div class="double-bounce2"></div>', // e.g '<img src="loading.svg" />'
-	   timeout: false,
-	   timeoutCountdown:5000,
-	   onLoadEvent: true,
-	   browser: [ 'animation-duration', '-webkit-animation-duration'],
-	   // "browser" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
-	   // The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
-	   overlay : false,
-	   overlayClass : 'animsition-overlay-slide',
-	   overlayParentElement : 'body',
-	   transition: function(url){ window.location.href = url; }
-	});
-
-
-
-	$('.popup-youtube').magnificPopup({
-		disableOn: 700,
-		type: 'iframe',
-		mainClass: 'mfp-with-zoom',
-		removalDelay: 160,
-		preloader: false,
-
-		fixedContentPos: false
-	});
-
-
-	/*-------------------------------------------------------------------------------
-	  Menu
-	-------------------------------------------------------------------------------*/
-
-
-
-	$('.navbar-toggle').on('click',function(){
-		$('body').removeClass('menu-is-closed').addClass('menu-is-opened');
-	});
-
-	$('.close-menu, .click-capture, .menu-list li a').on('click', function(){
-		$('body').removeClass('menu-is-opened').addClass('menu-is-closed');
-		$('.menu-list ul').slideUp(300);
-	});
-
-	$('.menu-list li a').on('click', function(){
-		$('.menu-list li').removeClass('active');
-		$(this).closest('li').addClass('active');
-
-	});
-
-
-	$('.col-resume').on('mouseover',function(){
-		$('.section-bg.mask').addClass('hide');
-	});
-
-	$('.col-resume').on('mouseleave', function () {
-	  $('.section-bg.mask').removeClass('hide');
-	});
-
-
-	/*-------------------------------------------------------------------------------
-	  Owl Carousel
-	-------------------------------------------------------------------------------*/
-function initSchoolCarousel(){
-  var $c = $('#schoolCarousel'); // id로 정확히
-  if (!$c.length) return;
-
-  var isMobile = window.matchMedia('(max-width: 991px), (pointer: coarse)').matches;
-
-  // 이미 owl이 붙어있다면 먼저 정리
-  if ($c.hasClass('owl-loaded')) {
-    $c.trigger('destroy.owl.carousel');
-    $c.removeClass('owl-loaded owl-drag owl-hidden');
-    $c.find('.owl-stage-outer').children().unwrap();
-    $c.find('.owl-stage').children().unwrap();
-    $c.find('.owl-nav, .owl-dots').remove();
-  }
-
-  if (isMobile) {
-    // ✅ 모바일: owl 아예 사용 안 함 + 네이티브 가로 스크롤
-    $c.removeClass('owl-carousel')
-      .addClass('is-native-scroll')
-      .css('display','flex');
-    return;
-  }
-
-  // ✅ PC: owl 사용
-  $c.addClass('owl-carousel')
-    .removeClass('is-native-scroll')
-    .css('display','block');
-
-  if (!$.fn.owlCarousel) return;
-
-  $c.owlCarousel({
-    items: 1,
-    margin: 18,
-    nav: false,
-    dots: true
-  });
-}
-
-if ($('.owl-carousel').length > 0){
-  $(".school-carousel").owlCarousel({
-    loop: false,
-    margin: 16,
-    nav: false,
-    dots: false,
-    autoWidth: true,          // ✅ 모바일에서 카드폭 유지에 유리
-    responsive:{
-      0:{ items: 1 },
-      768:{ items: 2 },
-      1200:{ items: 3 }
+  $(window).on('load', function(){
+    $('.loader').fadeOut(1000);
+    if (typeof WOW !== 'undefined') {
+      var wow = new WOW({ offset: 150, mobile: false });
+      wow.init();
     }
   });
 
-
-	/*-------------------------------------------------------------------------------
-	  Full screen sections 
-	-------------------------------------------------------------------------------*/
-	function navbarFullpage(){
-	 if ( $('.pp-section.active').scrollTop() > 0 ){
-    	$('.navbar-fullpage').addClass('navbar-fixed');
-      }
-      else{
-    	$('.navbar-fullpage').removeClass('navbar-fixed');
-     }
-    }
-
-    navbarFullpage();
-
-    function navbar(){
-    $(window).scroll(function(){
-    	if ( $(window).scrollTop() > 0 ){
-	    	$('.navbar').addClass('navbar-fixed');
-	      }
-	      else{
-	    	$('.navbar').removeClass('navbar-fixed');
-	     }
+  // Animsition
+  if ($.fn.animsition) {
+    $(".animsition").animsition({
+      inClass: 'fade-in',
+      outClass: 'fade-out',
+      inDuration: 1000,
+      outDuration: 700,
+      linkElement: 'a.project-box',
+      loading: true,
+      loadingParentElement: 'body',
+      loadingClass: 'spinner',
+      loadingInner: '<div class="double-bounce1"></div><div class="double-bounce2"></div>',
+      timeout: false,
+      timeoutCountdown: 5000,
+      onLoadEvent: true,
+      browser: [ 'animation-duration', '-webkit-animation-duration'],
+      overlay: false,
+      overlayClass: 'animsition-overlay-slide',
+      overlayParentElement: 'body',
+      transition: function(url){ window.location.href = url; }
     });
-	 
+  }
+
+  // youtube popup
+  if ($.fn.magnificPopup) {
+    $('.popup-youtube').magnificPopup({
+      disableOn: 700,
+      type: 'iframe',
+      mainClass: 'mfp-with-zoom',
+      removalDelay: 160,
+      preloader: false,
+      fixedContentPos: false
+    });
+  }
+
+  // Menu
+  $('.navbar-toggle').on('click', function(){
+    $('body').removeClass('menu-is-closed').addClass('menu-is-opened');
+  });
+
+  $('.close-menu, .click-capture, .menu-list li a').on('click', function(){
+    $('body').removeClass('menu-is-opened').addClass('menu-is-closed');
+    $('.menu-list ul').slideUp(300);
+  });
+
+  // Navbar fixed
+  function navbar(){
+    $(window).on('scroll', function(){
+      if ($(window).scrollTop() > 0) $('.navbar').addClass('navbar-fixed');
+      else $('.navbar').removeClass('navbar-fixed');
+    });
+  }
+  navbar();
+
+  // page8 input clear button
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.inq-clear');
+    if (!btn) return;
+    const wrap = btn.closest('.inq-input-with-btn');
+    const input = wrap?.querySelector('input');
+    if (!input) return;
+    input.value = '';
+    input.focus();
+  });
+
+  // School carousel init (PC only)
+  function initSchoolCarousel(){
+    var $c = $('#schoolCarousel');
+    if (!$c.length) return;
+
+    var isMobile = window.matchMedia('(max-width: 991px), (pointer: coarse)').matches;
+
+    // cleanup if already owl
+    if ($c.hasClass('owl-loaded')) {
+      $c.trigger('destroy.owl.carousel');
+      $c.removeClass('owl-loaded owl-drag owl-hidden');
+      $c.find('.owl-stage-outer').children().unwrap();
+      $c.find('.owl-stage').children().unwrap();
+      $c.find('.owl-nav, .owl-dots').remove();
     }
 
-    navbar();
+    if (isMobile) {
+      $c.removeClass('owl-carousel').addClass('is-native-scroll').css('display','flex');
+      return;
+    }
 
-document.addEventListener('click', (e) => {
-  const btn = e.target.closest('.inq-clear');
-  if (!btn) return;
-  const wrap = btn.closest('.inq-input-with-btn');
-  const input = wrap?.querySelector('input');
-  if (!input) return;
-  input.value = '';
-  input.focus();
-});
-}
-// ✅ Mobile: disable pagepiling, use normal scroll
-(function () {
-  const isMobile = window.matchMedia("(max-width: 991px), (pointer: coarse)").matches;
-  if (!isMobile) return;
+    if (!$.fn.owlCarousel) return;
 
-  // pagepiling이 이미 붙어있다면 제거
-  try { $.fn.pagepiling && $.fn.pagepiling.destroy && $.fn.pagepiling.destroy('all'); } catch(e){}
+    $c.addClass('owl-carousel').removeClass('is-native-scroll').css('display','block');
 
-  // pagepiling이 쓰던 overflow/height 영향 최소화
-  document.documentElement.style.overflow = "auto";
-  document.body.style.overflow = "auto";
+    $c.owlCarousel({
+      loop:false,
+      margin:16,
+      nav:false,
+      dots:false,
+      autoWidth:false,
+      responsive:{
+        0:{ items:1 },
+        768:{ items:2 },
+        1200:{ items:3 }
+      }
+    });
+  }
 
-  const wrap = document.getElementById("pagepiling");
-  if (wrap) wrap.classList.add("is-mobile-scroll");
-})();
+  // pagepiling: PC only, Mobile = normal scroll
+  function navbarFullpage(){
+    if ($('.pp-section.active').scrollTop() > 0) $('.navbar-fullpage').addClass('navbar-fixed');
+    else $('.navbar-fullpage').removeClass('navbar-fixed');
+  }
 
-const isMobile = window.matchMedia("(max-width: 991px), (pointer: coarse)").matches;
+  var isMobile = window.matchMedia("(max-width: 991px), (pointer: coarse)").matches;
 
-if (!isMobile && $('.pagepiling').length > 0){
-  $('.pagepiling').pagepiling({
-    scrollingSpeed: 280,
-    loopTop: false,
-    loopBottom: false,
-    anchors: ['page1', 'page2', 'page3', 'page4', 'page8'],
-    normalScrollElements:
-      '.section-8, .section-8 .scroll-wrap, .section-8 .scrollable-content, ' +
-      '.section-8 form, .section-8 input, .section-8 textarea, .section-8 select, ' +
-      '.section-8 .inq-card, .section-8 .inq-wrap',
-    afterLoad: function(anchorLink, index){
+  if (!isMobile && $.fn.pagepiling && $('.pagepiling').length){
+    $('.pagepiling').pagepiling({
+      scrollingSpeed: 280,
+      anchors: ['page1','page2','page3','page4','page8'],
+      afterLoad: function(anchorLink, index){
+        navbarFullpage();
+        if (index === 2) setTimeout(initSchoolCarousel, 50);
+      }
+    });
+
+    $(document).on('scroll', '.pp-scrollable', function(){
       navbarFullpage();
-      if(index === 2){
-        initSchoolCarousel();
-      }
-    }
-  });
-} else {
-  // ✅ 모바일: 일반 스크롤 모드로
-  $('html, body').css({ overflow: 'auto', height: 'auto' });
-
-  // pp-scrollable 구조가 height:100% 등으로 막는 경우가 있어서 풀어줌
-  $('.pp-scrollable, .scroll-wrap, .scrollable-content').css({
-    height: 'auto',
-    overflow: 'visible'
-  });
-}
-
-     $('.pp-scrollable').on('scroll', function () {
-    	var scrollTop =$(this).scrollTop();
-		if (scrollTop > 0 ) {
-			$('.navbar-fullpage').addClass('navbar-fixed');
-		}
-		else{
-			$('.navbar-fullpage').removeClass('navbar-fixed');
-		}
-	});
-
-
-
-	/*------------------------------------------------------------------------------
-	   Scroller navigation
-	/-------------------------------------------------------------------------------*/
-
-
-
-		$('#pp-nav').remove().appendTo('.animsition').addClass('white right-boxed hidden-xs');
-
-		$('.pp-nav-up').on('click', function(){
-			$.fn.pagepiling.moveSectionUp();
-		});
-
-		$('.pp-nav-down').on('click', function(){
-			$.fn.pagepiling.moveSectionDown();
-		});
- 
-
-
-
-    /*-------------------------------------------------------------------------------
-	  Change bacgkround on project section
-	-------------------------------------------------------------------------------*/
-
-
-
-    $('.project-row a').on('mouseover',function(){
-    	var index = $('.project-row a').index(this)
-    	$('.project-row a').removeClass('active');
-    	$(this).addClass('active');
-    	$('.bg-changer .section-bg').removeClass('active').eq(index).addClass('active');
     });
-
-
-
-
-	/*-------------------------------------------------------------------------------
-	  Ajax Forms
-	-------------------------------------------------------------------------------*/
-
-
-
-	if ($('.js-form').length) {
-		$('.js-form').each(function(){
-			$(this).validate({
-				errorClass: 'error',
-			    submitHandler: function(form){
-		        	$.ajax({
-			            type: "POST",
-			            url:"mail.php",
-			            data: $(form).serialize(),
-			            success: function() {
-			            	$('.form-group-message').show();
-			            	$('#error').hide();
-		                	$('#success').show();
-		                },
-
-		                error: function(){
-		                	$('.form-group-message').show();
-		                	$('#success').hide();
-			                $('#error').show();
-			            }
-			        });
-			    }
-			});
-		});
-	}
-
-	
-	
-
+  } else {
+    document.documentElement.style.overflow = "auto";
+    document.body.style.overflow = "auto";
+    const wrap = document.getElementById("pagepiling");
+    if (wrap) wrap.classList.add("is-mobile-scroll");
+  }
 
 })(jQuery);
-
 
 // ===== Korea region data (minimal, editable) =====
 // 필요하면 나중에 "세종/제주" 등 더 추가하면 됨.
