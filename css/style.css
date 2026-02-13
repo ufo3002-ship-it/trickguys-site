@@ -3942,7 +3942,7 @@ header.fixed {
   }
   #schoolCarousel .owl-item{
     flex:0 0 auto !important;
-    width:86vw !important;
+    width:80vw !important;
     scroll-snap-align:start;
   }
 
