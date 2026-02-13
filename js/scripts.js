@@ -124,7 +124,7 @@ document.addEventListener('schoolsReady', function(){
       loopTop: false,
       css3: true,
       navigation: false,
-      normalScrollElements: '.scrollable-content, .scroll-wrap, .inq-panel',
+      normalScrollElements: '.inq-panel, .inq-panel *',
       afterLoad: function(anchorLink, index){
         // 섹션 진입 시 캐러셀 다시 맞춤
         if (index === 2) initSchoolCarousel();
