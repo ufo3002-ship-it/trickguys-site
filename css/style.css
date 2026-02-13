@@ -4065,3 +4065,15 @@ body.is-loaded .loader{
     letter-spacing: -0.02em;
   }
 }
+.poster-meta {
+  text-shadow: 0 3px 12px rgba(0,0,0,0.85);
+}
+
+.poster-title {
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+
+.poster-sub {
+  opacity: 0.95;
+}
