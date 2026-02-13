@@ -102,6 +102,11 @@ window.addEventListener("load", function(){
   }, 100);
 });
 
+document.addEventListener('schoolsReady', function(){
+  if (window.initSchoolCarousel) {
+    window.initSchoolCarousel();
+  }
+});
 
   window.addEventListener('resize', function(){
     initSchoolCarousel();
