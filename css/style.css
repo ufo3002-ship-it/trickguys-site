@@ -3979,7 +3979,7 @@ header.fixed {
 
 @media (max-width: 991px){
   .school-carousel .school-item img{
-    width: 92% !important;     /* 100% → 92% */
+    width: 82% !important;     /* 100% → 92% */
     margin: 0 auto !important;
     display: block !important;
   }
